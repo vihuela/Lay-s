@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><!--适合注册页面登录按钮等-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
+    <item android:state_pressed="true">
+        <shape>
+            <padding android:bottom="7dp" android:left="7dp" android:right="7dp" android:top="7dp"/>
+            <solid android:color="@color/colorPrimary"/>
+            <corners android:radius="5dp"/>
+            <stroke android:width="1px" android:color="@color/colorPrimary"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <padding android:bottom="7dp" android:left="7dp" android:right="7dp" android:top="7dp"/>
+            <solid android:color="#fff"/>
+            <corners android:radius="5dp"/>
+            <stroke android:width="1px" android:color="@color/colorPrimary"/>
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    recyclerView refresh layout-->
+    <declare-styleable name="MoocStyleRefreshView">
+        <attr name="mv_ultimateColor" format="reference|color"/>
+        <attr name="mv_originalImg" format="reference"/>
+    </declare-styleable>
+
+    <!--circleProgress-->
+    <declare-styleable name="CircleProgressBar">
+        <attr name="min" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="progress_" format="integer"/>
+        <attr name="progressbarColor" format="color"/>
+        <attr name="isTranslucencyBg" format="boolean"/>
+        <attr name="progressBarThickness" format="dimension"/>
+    </declare-styleable>
+
+    <!-- SwipeBackLayout -->
+    <declare-styleable name="SwipeBackLayout">
+        <attr name="edge_size" format="dimension"/>
+        <attr name="edge_flag">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="bottom" value="2"/>
+            <enum name="all" value="3"/>
+        </attr>
+        <attr name="shadow_left" format="reference"/>
+        <attr name="shadow_right" format="reference"/>
+        <attr name="shadow_bottom" format="reference"/>
+    </declare-styleable>
+
+    <attr name="SwipeBackLayoutStyle" format="reference"/>
+
+    <!-- SmartTabLayout -->
+    <declare-styleable name="stl_SmartTabLayout">
+        <attr name="stl_indicatorAlwaysInCenter" format="boolean"/>
+        <attr name="stl_indicatorWithoutPadding" format="boolean"/>
+        <attr name="stl_indicatorInFront" format="boolean"/>
+        <attr name="stl_indicatorInterpolation" format="enum">
+            <enum name="smart" value="0"/>
+            <enum name="linear" value="1"/>
+        </attr>
+        <attr name="stl_indicatorGravity" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+            <enum name="center" value="2"/>
+        </attr>
+        <attr name="stl_indicatorColor" format="color"/>
+        <attr name="stl_indicatorColors" format="reference"/>
+        <attr name="stl_indicatorThickness" format="dimension"/>
+        <attr name="stl_indicatorCornerRadius" format="dimension"/>
+        <attr name="stl_overlineColor" format="color"/>
+        <attr name="stl_overlineThickness" format="dimension"/>
+        <attr name="stl_underlineColor" format="color"/>
+        <attr name="stl_underlineThickness" format="dimension"/>
+        <attr name="stl_dividerColor" format="color"/>
+        <attr name="stl_dividerColors" format="reference"/>
+        <attr name="stl_dividerThickness" format="dimension"/>
+        <attr name="stl_defaultTabBackground" format="reference"/>
+        <attr name="stl_defaultTabTextAllCaps" format="boolean"/>
+        <attr name="stl_defaultTabTextColor" format="color|reference"/>
+        <attr name="stl_defaultTabTextSize" format="dimension"/>
+        <attr name="stl_defaultTabTextHorizontalPadding" format="dimension"/>
+        <attr name="stl_defaultTabTextMinWidth" format="dimension"/>
+        <attr name="stl_customTabTextLayoutId" format="reference"/>
+        <attr name="stl_customTabTextViewId" format="reference"/>
+        <attr name="stl_distributeEvenly" format="boolean"/>
+        <attr name="stl_clickable" format="boolean"/>
+    </declare-styleable>
+
+    <!--SwitchView-->
+    <declare-styleable name="SwitchView">
+        <attr name="tintColor" format="reference|color"/>
+        <attr name="outerStrokeWidth" format="reference|dimension"/>
+        <attr name="shadowSpace" format="reference|dimension"/>
+    </declare-styleable>
+
+    <!--PagerSlidingTabStrip-->
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color"/>
+        <attr name="pstsIndicatorHeight" format="dimension"/>
+        <attr name="pstsUnderlineColor" format="color"/>
+        <attr name="pstsUnderlineHeight" format="dimension"/>
+        <attr name="pstsDividerColor" format="color"/>
+        <attr name="pstsDividerWidth" format="dimension"/>
+        <attr name="pstsIndicatorLeftPadding" format="dimension"/>
+        <attr name="pstsDividerPadding" format="dimension"/>
+        <attr name="pstsScrollOffset" format="dimension"/>
+        <attr name="pstsShouldExpand" format="boolean"/>
+        <attr name="pstsPaddingMiddle" format="boolean"/>
+        <attr name="pstsTabPaddingLeftRight" format="dimension"/>
+        <attr name="pstsTabBackground" format="reference"/>
+        <attr name="pstsTabTextSize" format="dimension"/>
+        <attr name="pstsTabTextColor" format="reference"/>
+        <attr name="pstsTabTextPressColor" format="reference"/>
+        <attr name="pstsTabTextSelectColor" format="reference"/>
+        <attr name="pstsTabTextDefaultColor" format="reference"/>
+        <attr name="pstsTabTextStyle" format="reference">
+            <flag name="normal" value="0x0"/>
+            <flag name="bold" value="0x1"/>
+            <flag name="italic" value="0x2"/>
+        </attr>
+        <attr name="pstsTabTextAllCaps" format="boolean"/>
+        <attr name="pstsTabTextAlpha" format="integer"/>
+        <attr name="pstsTabTextFontFamily" format="string"/>
+    </declare-styleable>
+
+    <!--SegmentedGroup-->
+    <declare-styleable name="SegmentedGroup">
+        <attr name="sg_corner_radius" format="dimension"/>
+        <attr name="sg_border_width" format="dimension"/>
+        <attr name="sg_tint_color" format="color"/>
+        <attr name="sg_checked_text_color" format="color"/>
+        <attr name="sg_pressed_text_color" format="color"/>
+    </declare-styleable>
+
+    <!--CircleImageView-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="border_overlay" format="boolean"/>
+    </declare-styleable>
+
+    <!--SwipeItemLayout-->
+    <declare-styleable name="SwipeItemLayout">
+        <attr name="bga_sil_swipeDirection" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="bga_sil_bottomMode" format="enum">
+            <enum name="pullOut" value="0"/>
+            <enum name="layDown" value="1"/>
+        </attr>
+        <attr name="bga_sil_springDistance" format="dimension"/>
+    </declare-styleable>
+
+    <!--BGABadgeView-->
+    <declare-styleable name="BGABadgeView">
+        <!-- 徽章背景色 -->
+        <attr name="badge_bgColor" format="reference|color"/>
+        <!-- 徽章文本的颜色 -->
+        <attr name="badge_textColor" format="reference|color"/>
+        <!-- 徽章文本字体大小 -->
+        <attr name="badge_textSize" format="reference|dimension"/>
+        <!-- 徽章背景与宿主控件上下边缘间距离 -->
+        <attr name="badge_verticalMargin" format="reference|dimension"/>
+        <!-- 徽章背景与宿主控件左右边缘间距离 -->
+        <attr name="badge_horizontalMargin" format="reference|dimension"/>
+        <!-- 徽章文本边缘与徽章背景边缘间的距离 -->
+        <attr name="badge_padding" format="reference|dimension"/>
+        <!-- 徽章在宿主控件中的位置 -->
+        <attr name="badge_gravity" format="enum">
+            <enum name="rightTop" value="0"/>
+            <enum name="rightCenter" value="1"/>
+            <enum name="rightBottom" value="2"/>
+        </attr>
+        <!-- 是否可以拖拽删除徽章 -->
+        <attr name="badge_dragable" format="boolean"/>
+    </declare-styleable>
+
+    <!--materialEditText-->
+    <declare-styleable name="MaterialEditText">
+        <!-- The base color of the line and the texts. Default is black. -->
+        <attr name="met_baseColor" format="color"/>
+        <!-- The highlight color of the line, and the floating label if the highlightFloatingLabel is true. -->
+        <attr name="met_primaryColor" format="color"/>
+        <!-- How the floating label should be shown. Default is none -->
+        <attr name="met_floatingLabel">
+            <enum name="none" value="0"/>
+            <enum name="normal" value="1"/>
+            <enum name="highlight" value="2"/>
+        </attr>
+        <!-- The color for when something is wrong.(e.g. exceeding max characters) -->
+        <attr name="met_errorColor" format="color"/>
+        <!-- Min characters count limit. 0 means no limit. -->
+        <attr name="met_minCharacters" format="integer"/>
+        <!-- max Characters count limit. 0 means no limit. -->
+        <attr name="met_maxCharacters" format="integer"/>
+        <!-- Whether to show the bottom ellipsis in singleLine mode -->
+        <attr name="met_singleLineEllipsis" format="boolean"/>
+        <!-- Reserved bottom text lines count, no matter if there is some helper/error text. -->
+        <attr name="met_minBottomTextLines" format="integer"/>
+        <!-- Helper text at the bottom -->
+        <attr name="met_helperText" format="string"/>
+        <!-- Helper text color -->
+        <attr name="met_helperTextColor" format="color"/>
+        <!-- Font of the paint used to draw accent texts -->
+        <attr name="met_accentTypeface" format="string"/>
+        <!-- Font used on view -->
+        <attr name="met_typeface" format="string"/>
+        <!-- Custom float label text -->
+        <attr name="met_floatingLabelText" format="string"/>
+        <!-- spacing between the main text and the floating label -->
+        <attr name="met_floatingLabelPadding" format="dimension"/>
+        <!-- Hide underline -->
+        <attr name="met_hideUnderline" format="boolean"/>
+        <!-- Underline's color -->
+        <attr name="met_underlineColor" format="color"/>
+        <!-- Auto validate -->
+        <attr name="met_autoValidate" format="boolean"/>
+        <!-- Left icon -->
+        <attr name="met_iconLeft" format="reference"/>
+        <!-- Right icon -->
+        <attr name="met_iconRight" format="reference"/>
+        <!-- Padding between icon(s) and the main area. 8dp by default. -->
+        <attr name="met_iconPadding" format="dimension"/>
+        <!-- Clear button -->
+        <attr name="met_clearButton" format="boolean"/>
+        <!-- The floating label's text size. 12sp by default. -->
+        <attr name="met_floatingLabelTextSize" format="dimension"/>
+        <!-- The floating label's text color. -1 by default. -->
+        <attr name="met_floatingLabelTextColor" format="color"/>
+        <!-- The bottom texts' size. 12sp by default. -->
+        <attr name="met_bottomTextSize" format="dimension"/>
+        <!-- Always show the floating label, instead of animating it in/out. False by default. -->
+        <attr name="met_floatingLabelAlwaysShown" format="boolean"/>
+        <!-- Always show the helper text, no matter if the edit text is focused. False by default. -->
+        <attr name="met_helperTextAlwaysShown" format="boolean"/>
+        <!-- Whether use animation to show/hide the floating label. True by default. -->
+        <attr name="met_floatingLabelAnimating" format="boolean"/>
+        <!-- Text color -->
+        <attr name="met_textColor" format="color"/>
+        <!-- Hint Text Color -->
+        <attr name="met_textColorHint" format="color"/>
+        <!-- Auto validate on focus lost. False by default. -->
+        <attr name="met_validateOnFocusLost" format="boolean"/>
+        <!-- Whether check the characters count at the beginning it's shown. True by default. -->
+        <attr name="met_checkCharactersCountAtBeginning" format="boolean"/>
+
+    </declare-styleable>
+
+    <!--    tag group-->
+    <declare-styleable name="TagGroup">
+        <!-- Whether add empty input item. -->
+        <attr name="atg_isAddInputItem" format="boolean"/>
+        <!-- Whether the tag group is in append mode. -->
+        <attr name="atg_isAppendMode" format="boolean"/>
+        <!-- If the tag group is in append mode, what the hint of input tag. -->
+        <attr name="atg_inputHint" format="string"/>
+
+        <!-- The tag view outline border color. -->
+        <attr name="atg_borderColor" format="color"/>
+        <!-- The tag view text color. -->
+        <attr name="atg_textColor" format="color"/>
+        <!-- The tag view background color. -->
+        <attr name="atg_backgroundColor" format="color"/>
+
+        <!-- The dash outline border color, when in append mode. -->
+        <attr name="atg_dashBorderColor" format="color"/>
+        <!-- The input tag hint text color, when in append mode. -->
+        <attr name="atg_inputHintColor" format="color"/>
+        <!-- The input tag type text color, when in append mode. -->
+        <attr name="atg_inputTextColor" format="color"/>
+
+        <!-- The checked tag view outline border color. -->
+        <attr name="atg_checkedBorderColor" format="color"/>
+        <!-- The checked text color. -->
+        <attr name="atg_checkedTextColor" format="color"/>
+        <!-- The checked marker color. -->
+        <attr name="atg_checkedMarkerColor" format="color"/>
+        <!-- The checked tag view background color. -->
+        <attr name="atg_checkedBackgroundColor" format="color"/>
+
+        <!-- The tag view background color, when the tag view is being pressed. -->
+        <attr name="atg_pressedBackgroundColor" format="color"/>
+
+        <!-- The tag view outline border stroke width. -->
+        <attr name="atg_borderStrokeWidth" format="dimension"/>
+        <!-- The tag view text size. -->
+        <attr name="atg_textSize" format="dimension"/>
+
+        <attr name="atg_horizontalSpacing" format="dimension"/>
+        <attr name="atg_verticalSpacing" format="dimension"/>
+        <attr name="atg_horizontalPadding" format="dimension"/>
+        <attr name="atg_verticalPadding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="tagGroupStyle" format="reference"/>
+    </declare-styleable>
+
+</resources>

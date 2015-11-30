@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        style="@style/MatchMatch"
+        android:orientation="vertical">
+
+        <!--可选-->
+        <LinearLayout
+            android:id="@+id/totalLayout"
+            style="@style/MatchAuto.Vertical">
+
+            <LinearLayout
+                style="@style/MatchWrap"
+                android:background="@color/commonBg"
+                android:orientation="horizontal"
+                android:paddingBottom="7dp"
+                android:paddingLeft="@dimen/item_padding"
+                android:paddingRight="@dimen/item_padding"
+                android:paddingTop="7dp">
+
+                <TextView
+                    android:id="@+id/totalCountDes1"
+                    style="@style/WrapWrap"
+                    android:text="有"
+                    android:textColor="@color/text_92"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/totalCount"
+                    style="@style/WrapWrap"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:text="5555000"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/totalCountDes2"
+                    style="@style/WrapWrap"
+                    android:text="条问题等待你的解答"
+                    android:textColor="@color/text_92"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+            <View style="@style/Divider"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            style="@style/MatchWrap"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="@dimen/item_padding"
+            android:paddingTop="@dimen/item_padding">
+
+
+            <FrameLayout
+                style="@style/MatchWrap"
+                android:paddingRight="@dimen/item_padding"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/moneyLayout"
+                    style="@style/WrapWrap">
+
+
+                    <ImageView
+                        android:id="@+id/moneyIcon"
+                        style="@style/WrapWrap"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/money_ll_icon"/>
+
+                    <TextView
+                        android:id="@+id/score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/moneyIcon"
+                        android:text="9"
+                        android:textColor="@color/colorPrimary"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="7dp"
+                    android:text="　　　一区最强王者求掉打一区最强王者求掉打一区最强王者求掉打一区最强王者求掉打一区最强王者求掉打一区最强王者求掉打一区最强王者求掉打"
+                    android:textColor="@color/text_45"/>
+            </FrameLayout>
+
+
+            <LinearLayout
+                style="@style/MatchWrap"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/WrapWrap"
+                    android:background="@mipmap/label"/>
+
+                <TextView
+                    android:id="@+id/tag"
+                    style="@style/WrapWrap"
+                    android:layout_marginLeft="8dp"
+                    android:singleLine="true"
+                    android:text="故障维修"
+                    android:textColor="@color/text_92"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/tagLine"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/text_92"/>
+
+                <TextView
+                    android:id="@+id/brand"
+                    style="@style/WrapWrap"
+                    android:layout_marginLeft="8dp"
+                    android:text="奥迪"
+                    android:textColor="@color/text_92"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/time"
+                    style="@style/MatchWrap"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/item_padding"
+                    android:text="刚刚"
+                    android:textColor="@color/text_time"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+
+            <View
+                style="@style/Divider"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                style="@style/MatchWrap"
+                android:layout_marginTop="5dp"
+                android:paddingRight="@dimen/item_padding">
+
+                <FrameLayout
+                    android:id="@+id/headLayout"
+                    style="@style/WrapWrap">
+
+                    <com.hadlink.library.widget.CircleImageView
+                        android:id="@+id/head"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/ic_my_head_image"
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/text_92"
+                        app:border_width="1px"/>
+
+                    <com.hadlink.library.widget.badgeView.BadgeTextView
+                        android:id="@+id/badge"
+                        style="@style/MatchWrap"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="8dp"
+                        />
+                </FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/nickName"
+                    style="@style/WrapWrap"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/headLayout"
+                    android:singleLine="true"
+                    android:text="肖白"
+                    android:textColor="@color/text_92"
+                    android:textSize="11sp"/>
+
+                <ImageView
+                    android:id="@+id/gender"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/nickName"/>
+
+                <TextView
+                    android:id="@+id/rightNowAnswer"
+                    style="@style/WrapWrap"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:background="@drawable/selector_right_answer"
+                    android:text="立即回答"
+                    android:textColor="@drawable/selector_right_answer_text"
+                    android:textSize="10sp"/>
+
+                <TextView
+                    android:id="@+id/commonCount"
+                    style="@style/WrapWrap"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@id/rightNowAnswer"
+                    android:text="0"
+                    android:textColor="@color/text_time"
+                    android:textSize="11sp"/>
+
+                <ImageView
+                    style="@style/WrapWrap"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/commonCount"
+                    android:background="@mipmap/answernum"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/bottom_line"
+            style="@style/MatchWrap"
+            android:layout_height="6dp"
+            android:background="@drawable/selector_home_line"/>
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="commonBg">#F6F5FA</color>
+    <color name="text_92">#FF929292</color>
+    <color name="text_45">#FF454545</color>
+    <color name="text_time">#FFC7C7CD</color>
+    <color name="commonStoke">#E5E5E7</color>
+</resources>
