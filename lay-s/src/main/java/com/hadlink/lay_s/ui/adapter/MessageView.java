@@ -64,9 +64,9 @@ public class MessageView extends BindableLayout<WaitingAskBean> {
         /**
          * view
          */
-        totalLayout.setVisibility(message.isFirst ? View.VISIBLE : View.GONE);
+//        totalLayout.setVisibility(message.isFirst ? View.VISIBLE : View.GONE);
         moneyLayout.setVisibility(message.awardScore != 0 ? View.VISIBLE : View.GONE);
-        totalCount.setText(message.dataTotal + "");
+//        totalCount.setText(message.dataTotal + "");
         commonCount.setText(message.msgCount + "");
         score.setText(message.awardScore + "");
         String tabStr;

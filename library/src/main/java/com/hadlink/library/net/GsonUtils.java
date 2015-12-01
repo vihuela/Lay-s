@@ -16,6 +16,7 @@ public class GsonUtils {
         builder
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+//                .registerTypeAdapter(Response.class, new MyCommonGsonAdapter());
                 .registerTypeAdapter(Date.class, new DateTypeAdapter());
 
         return builder.create();

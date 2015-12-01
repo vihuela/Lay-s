@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.hadlink.library.Event.OnEventListener;
 import com.hadlink.library.base.view.IDelegate;
+
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -14,7 +17,7 @@ import com.hadlink.library.base.view.IDelegate;
  *
  * @param <T> View delegate class type
  */
-public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
+public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity implements OnEventListener {
     protected T viewDelegate;
 
     public ActivityPresenter() {
@@ -35,6 +38,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
         initToolbar();
         viewDelegate.initWidget();
         bindEvenListener();
+        EventBus.getDefault().register(this);
     }
 
     protected void bindEvenListener() {

@@ -43,4 +43,6 @@ public class WaitingAskBean {
     public static WaitingAskBean createWaitingAskBean(boolean isFirst, int dataTotal, int pageTotal, String nickName, String avatarUrl, int awardScore, String createTime, int gender, int msgCount, String questionContent, int questionID, String brandName, String tagName, int userID) {
         return new WaitingAskBean(isFirst, dataTotal, pageTotal, nickName, avatarUrl, awardScore, createTime, gender, msgCount, questionContent, questionID, brandName, tagName, userID);
     }
+
+
 }

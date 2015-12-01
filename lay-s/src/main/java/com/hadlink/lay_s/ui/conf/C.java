@@ -5,7 +5,7 @@ package com.hadlink.lay_s.ui.conf;
  * @update
  * @description
  */
-public final class Constance {
+public final class C {
 
     /**
      * 主机
@@ -14,6 +14,14 @@ public final class Constance {
         public static final String host = "http://eptapi.imchehu.com/";
     }
 
+    /**
+     * 请求
+     */
+    public static final class Request{
+
+        public static final String getWaitReplyList = "getWaitReplyList";
+
+    }
     /**
      * 列表常量
      */

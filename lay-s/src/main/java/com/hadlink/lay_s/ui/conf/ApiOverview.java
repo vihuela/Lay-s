@@ -1,6 +1,8 @@
 package com.hadlink.lay_s.ui.conf;
 
-import com.hadlink.lay_s.ui.pojo.response.WaitReplyListResponse;
+
+import com.hadlink.lay_s.ui.pojo.model.WaitingAskBean;
+import com.hadlink.lay_s.ui.pojo.response.BaseListResponse;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -16,5 +18,6 @@ public interface ApiOverview {
     /**
      * 等待回答列表
      */
-    @GET("question/getWaitReplyList") Call<WaitReplyListResponse> getWaitReplyList(@Query("expertID") int expertID, @Query("pageNum") int pageNum, @Query("numPerPage") int numPerPage);
+    @GET("question/getWaitReplyList") Call<BaseListResponse<WaitingAskBean>>  getWaitReplyList(@Query("expertID") int expertID, @Query("pageNum") int pageNum, @Query("numPerPage") int numPerPage);
+
 }

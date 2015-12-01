@@ -10,7 +10,7 @@ import java.util.List;
  * @update
  * @description
  */
-public class WaitReplyListResponse extends CommonResponse {
+public class BaseListResponse<T> extends CommonResponse {
 
     /**
      * dataTotal : 37732
@@ -27,7 +27,7 @@ public class WaitReplyListResponse extends CommonResponse {
 
     public DataEntity data;
 
-    public static class DataEntity {
+    public  class DataEntity {
         public int dataTotal;
         public boolean nextPage;
         public int pageNo;
@@ -52,20 +52,20 @@ public class WaitReplyListResponse extends CommonResponse {
          * userID : 19
          */
 
-        public List<PageDataEntity> pageData;
+        public List<T> pageData;
 
-        public static class PageDataEntity {
-            public String nickName;
-            public String avatarUrl;
-            public int awardScore;
-            public String createTime;
-            public int gender;
-            public int msgCount;
-            public String questionContent;
-            public int questionID;
-            public String stdName;
-            public String tagName;
-            public int userID;
-        }
+//        public  class PageDataEntity {
+//            public String nickName;
+//            public String avatarUrl;
+//            public int awardScore;
+//            public String createTime;
+//            public int gender;
+//            public int msgCount;
+//            public String questionContent;
+//            public int questionID;
+//            public String stdName;
+//            public String tagName;
+//            public int userID;
+//        }
     }
 }
