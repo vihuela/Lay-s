@@ -26,7 +26,7 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     public void onEvent(BusEvent busEvent){
         if(busEvent.what == C.Request.getWaitReplyList.hashCode()){
             BaseListResponse<WaitingAskBean> waitingAskBeanBaseListResponse = (BaseListResponse<WaitingAskBean>) busEvent.obj;
-            List<WaitingAskBean> list = waitingAskBeanBaseListResponse.data.pageData;
+            List<WaitingAskBean> list = waitingAskBeanBaseListResponse.getResult();
 
         }
     }
