@@ -36,6 +36,10 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     private void requestList(boolean refresh) {
 //        MyNet.get().getWaitReplyList(107, viewDelegate.getCurrentPageNum(), C.List.numPerPage);
         MyNet.get().getCertificates(190);
+//        DaoManagerImpl<WaitingAskBean> dao = new DB().getDao(WaitingAskBean.class);
+//        dao.saveAll(new ArrayList<WaitingAskBean>());
+//        WaitingAskBean list = dao.queryByKey("1");
+//        WaitingAskBean d= dao.query(null);
     }
 
     @Override public void onRefresh() {

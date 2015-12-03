@@ -1,5 +1,6 @@
 package com.hadlink.library.databasenew;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.hadlink.library.databasenew.help.exception.DBException;
@@ -26,5 +27,7 @@ public interface DaoManager {
     boolean deleteByKey(Object o)throws DBException;
     <A>boolean delete(A a) throws DBException;
     boolean deleteAll() throws DBException;
+
+    <A> A c2b(Cursor c);
 
 }
