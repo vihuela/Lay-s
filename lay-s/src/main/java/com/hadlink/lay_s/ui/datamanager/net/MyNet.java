@@ -1,5 +1,6 @@
-package com.hadlink.lay_s.ui.conf;
+package com.hadlink.lay_s.ui.datamanager.net;
 
+import com.hadlink.lay_s.ui.conf.C;
 import com.hadlink.library.net.proxy.Net;
 
 /**

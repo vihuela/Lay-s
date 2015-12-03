@@ -1,4 +1,4 @@
-package com.hadlink.lay_s.ui.pojo.response;
+package com.hadlink.lay_s.ui.datamanager.net.baseResponse;
 
 
 import com.hadlink.library.net.impl.CommonResponse;
@@ -10,9 +10,13 @@ import java.util.List;
  * @update
  * @description
  */
-public class BaseListResponse<T> extends CommonResponse {
+public class BaseListResponse implements CommonResponse {
 
+    public long code;
+    public String message;
     public DataEntity data;
+
+
 
     public  class DataEntity {
         public int dataTotal;
@@ -25,9 +29,13 @@ public class BaseListResponse<T> extends CommonResponse {
         public boolean prevPage;
         public int showPageNum;
         public int startOfPage;
-        public List<T> pageData;
+        public List pageData;
     }
-    public List<T> getResult(){
+
+    public List getResult(){
         return data.pageData;
+    }
+    @Override public void setResult(Object t) {
+        data.pageData = (List) t;
     }
 }

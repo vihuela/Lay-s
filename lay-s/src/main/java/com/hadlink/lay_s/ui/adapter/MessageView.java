@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hadlink.lay_s.R;
-import com.hadlink.lay_s.ui.pojo.model.WaitingAskBean;
+import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.views.BindableLayout;
 import com.hadlink.library.widget.CircleImageView;
 import com.hadlink.library.widget.badgeView.BadgeTextView;

@@ -5,7 +5,8 @@ package com.hadlink.library.net.impl;
  * @update
  * @description
  */
-public class CommonResponse {
-    public long code;
-    public String message;
+public interface CommonResponse {
+
+    public abstract <T> T getResult();
+    public abstract void setResult(Object t);
 }

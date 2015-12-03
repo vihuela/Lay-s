@@ -1,7 +1,5 @@
 package com.hadlink.library.net.impl;
 
-import android.text.TextUtils;
-
 import com.google.gson.JsonSyntaxException;
 import com.hadlink.library.application.CommonApplication;
 import com.hadlink.library.conf.CommonEvent;
@@ -143,19 +141,19 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
         /**
          * 针对不同项目成功的配置
          */
-        if (t != null && t instanceof CommonResponse) {
-            CommonResponse c = (CommonResponse) t;
-            if (c.code == 200) {
-                onSuccess(t);
-            } else if (!TextUtils.isEmpty(c.message)) {
-                onDispatchError(Error.Server, c.message);
-            }
-        } else if (t != null && t.getClass() != null) {
-            Logger.e("Please check " + t.getClass().getSimpleName() + "whether inheritance CommonResponse");
-        } else {
-            //tis null
-            onDispatchError(Error.UnKnow, "response bean is null");
-        }
+//        if (t != null && t instanceof CommonResponse) {
+//            CommonResponse c = (CommonResponse) t;
+//            if (c.code == 200) {
+//                onSuccess(t);
+//            } else if (!TextUtils.isEmpty(c.message)) {
+//                onDispatchError(Error.Server, c.message);
+//            }
+//        } else if (t != null && t.getClass() != null) {
+//            Logger.e("Please check " + t.getClass().getSimpleName() + "whether inheritance CommonResponse");
+//        } else {
+//            //tis null
+//            onDispatchError(Error.UnKnow, "response bean is null");
+//        }
     }
 
 

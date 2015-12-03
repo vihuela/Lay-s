@@ -5,7 +5,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.ui.adapter.MessageView;
-import com.hadlink.lay_s.ui.pojo.model.WaitingAskBean;
+import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.SmartAdapter;
 import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
 import com.hadlink.library.base.view.AppDelegate;

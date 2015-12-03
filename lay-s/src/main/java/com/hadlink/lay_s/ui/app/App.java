@@ -1,6 +1,7 @@
 package com.hadlink.lay_s.ui.app;
 
 import com.hadlink.lay_s.BuildConfig;
+import com.hadlink.lay_s.ui.datamanager.database.DAOHelper;
 import com.hadlink.library.application.CommonApplication;
 
 /**
@@ -12,5 +13,10 @@ public class App extends CommonApplication {
 
     @Override protected boolean getLog() {
         return BuildConfig.DEBUG;
+    }
+
+    @Override public void onCreate() {
+        super.onCreate();
+        DAOHelper.getInstance().getDB();
     }
 }

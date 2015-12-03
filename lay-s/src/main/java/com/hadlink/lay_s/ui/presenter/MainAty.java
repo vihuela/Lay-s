@@ -1,10 +1,11 @@
 package com.hadlink.lay_s.ui.presenter;
 
 import com.hadlink.lay_s.ui.conf.C;
-import com.hadlink.lay_s.ui.conf.MyNet;
+import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
+import com.hadlink.lay_s.ui.datamanager.database.dao.WaitingAskBeanDao;
+import com.hadlink.lay_s.ui.datamanager.net.MyNet;
+import com.hadlink.lay_s.ui.datamanager.net.baseResponse.BaseListResponse;
 import com.hadlink.lay_s.ui.delegate.CommonRVDelegate;
-import com.hadlink.lay_s.ui.pojo.model.WaitingAskBean;
-import com.hadlink.lay_s.ui.pojo.response.BaseListResponse;
 import com.hadlink.library.Event.BusEvent;
 import com.hadlink.library.base.presenter.ActivityPresenter;
 
@@ -25,14 +26,16 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     @Override
     public void onEvent(BusEvent busEvent){
         if(busEvent.what == C.Request.getWaitReplyList.hashCode()){
-            BaseListResponse<WaitingAskBean> waitingAskBeanBaseListResponse = (BaseListResponse<WaitingAskBean>) busEvent.obj;
+            BaseListResponse waitingAskBeanBaseListResponse = (BaseListResponse) busEvent.obj;
             List<WaitingAskBean> list = waitingAskBeanBaseListResponse.getResult();
-
+            WaitingAskBean bean = list.get(1);
+            WaitingAskBeanDao.getInstance().saveAll(list);
         }
     }
 
     private void requestList(boolean refresh) {
-        MyNet.get().getWaitReplyList(107, viewDelegate.getCurrentPageNum(), C.List.numPerPage);
+//        MyNet.get().getWaitReplyList(107, viewDelegate.getCurrentPageNum(), C.List.numPerPage);
+        MyNet.get().getCertificates(190);
     }
 
     @Override public void onRefresh() {
