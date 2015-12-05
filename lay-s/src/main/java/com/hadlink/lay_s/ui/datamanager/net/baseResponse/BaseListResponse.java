@@ -10,11 +10,19 @@ import java.util.List;
  * @update
  * @description
  */
-public class BaseListResponse implements CommonResponse {
+public class BaseListResponse<T> implements CommonResponse<List<T>> {
 
     public long code;
     public String message;
     public DataEntity data;
+
+    @Override public List<T> getResult() {
+        return data.pageData;
+    }
+
+    @Override public void setResult(List<T> ts) {
+        this.data.pageData = ts;
+    }
 
 
 
@@ -29,13 +37,7 @@ public class BaseListResponse implements CommonResponse {
         public boolean prevPage;
         public int showPageNum;
         public int startOfPage;
-        public List pageData;
+        public List<T> pageData;
     }
 
-    public List getResult(){
-        return data.pageData;
-    }
-    @Override public void setResult(Object t) {
-        data.pageData = (List) t;
-    }
 }

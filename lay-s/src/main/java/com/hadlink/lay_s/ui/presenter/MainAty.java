@@ -2,7 +2,6 @@ package com.hadlink.lay_s.ui.presenter;
 
 import com.hadlink.lay_s.ui.conf.C;
 import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
-import com.hadlink.lay_s.ui.datamanager.database.dao.WaitingAskBeanDao;
 import com.hadlink.lay_s.ui.datamanager.net.MyNet;
 import com.hadlink.lay_s.ui.datamanager.net.baseResponse.BaseListResponse;
 import com.hadlink.lay_s.ui.delegate.CommonRVDelegate;
@@ -29,17 +28,12 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
             BaseListResponse waitingAskBeanBaseListResponse = (BaseListResponse) busEvent.obj;
             List<WaitingAskBean> list = waitingAskBeanBaseListResponse.getResult();
             WaitingAskBean bean = list.get(1);
-            WaitingAskBeanDao.getInstance().saveAll(list);
         }
     }
 
     private void requestList(boolean refresh) {
-//        MyNet.get().getWaitReplyList(107, viewDelegate.getCurrentPageNum(), C.List.numPerPage);
         MyNet.get().getCertificates(190);
-//        DaoManagerImpl<WaitingAskBean> dao = new DB().getDao(WaitingAskBean.class);
-//        dao.saveAll(new ArrayList<WaitingAskBean>());
-//        WaitingAskBean list = dao.queryByKey("1");
-//        WaitingAskBean d= dao.query(null);
+//        MyNet.get().getWaitReplyList(107,viewDelegate.getCurrentPageNum(),C.List.numPerPage);
     }
 
     @Override public void onRefresh() {

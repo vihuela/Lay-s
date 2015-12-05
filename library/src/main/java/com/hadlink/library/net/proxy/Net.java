@@ -15,4 +15,7 @@ public class Net<T> {
         return proxySubject;
     }
 
+    public static <T> T get(Class<T> clazz,String host){
+        return new Net<T>().RequestUtil(clazz, host);
+    }
 }

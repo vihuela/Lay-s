@@ -24,7 +24,7 @@ public class RetrofitUtils {
                 if (singleton == null) {
                     singleton = new Retrofit.Builder()
                             .baseUrl(host)
-                            .addConverterFactory(GsonConverterFactory.create(GsonUtils.newInstance()))
+                            .addConverterFactory(GsonConverterFactory.create(GsonUtils.INSTANCE.get()))
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .client(OkHttpUtils.getInstance(context, debug))
                             .build();

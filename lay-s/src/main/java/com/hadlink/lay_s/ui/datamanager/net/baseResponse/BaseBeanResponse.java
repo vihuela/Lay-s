@@ -5,7 +5,7 @@ import com.hadlink.library.net.impl.CommonResponse;
 /**
  * Created by zhouml on 2015/12/3.
  */
-public class BaseBeanResponse implements CommonResponse{
+public class BaseBeanResponse<T> implements CommonResponse<T>{
     /**
      * examineStatus : 1
      * occupationCardThree : null
@@ -14,7 +14,7 @@ public class BaseBeanResponse implements CommonResponse{
      * identityCard : http://res.imchehu.com/expert/img/auth/220469996328261.png
      */
 
-    public Object data;
+    public T data;
     public long code;
     public String message;
 
@@ -23,11 +23,11 @@ public class BaseBeanResponse implements CommonResponse{
 
 
 
-    @Override public Object getResult() {
+    @Override public T getResult() {
         return data;
     }
 
-    @Override public void setResult(Object t) {
+    @Override public void setResult(T t) {
         data = t;
     }
 

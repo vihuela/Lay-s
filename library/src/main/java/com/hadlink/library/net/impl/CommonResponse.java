@@ -5,8 +5,11 @@ package com.hadlink.library.net.impl;
  * @update
  * @description
  */
-public interface CommonResponse {
+public interface CommonResponse<T> {
 
-    public abstract <T> T getResult();
-    public abstract void setResult(Object t);
+      T getResult();
+    void setResult(T t);
+
+//    List<T> getListResult();
+//    void setListReslut(List<T> list);
 }

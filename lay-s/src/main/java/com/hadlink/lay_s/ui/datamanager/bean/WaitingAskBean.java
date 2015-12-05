@@ -1,6 +1,5 @@
 package com.hadlink.lay_s.ui.datamanager.bean;
 
-import com.hadlink.library.database.help.ParamsType;
 
 /**
  * @author Created by lyao on 2015/11/29.
@@ -12,27 +11,16 @@ public class WaitingAskBean {
     public int pageTotal;//总页数
     public int dataTotal;//数据总条数
     public boolean isFirst;//是否第一个条目，用于显示条目数布局
-    @ParamsType
     public String nickName;
-    @ParamsType
     public String avatarUrl;
-    @ParamsType
     public int awardScore;
-    @ParamsType
     public String createTime;
-    @ParamsType
     public int gender;
-    @ParamsType
     public int msgCount;
-    @ParamsType
     public String questionContent;
-    @ParamsType
     public int questionID;
-    @ParamsType
     public String brandName;
-    @ParamsType
     public String tagName;
-    @ParamsType(ParamsType.Type.KEY)
     public int userID;
 
     public WaitingAskBean(){}

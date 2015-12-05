@@ -8,6 +8,6 @@ import com.hadlink.library.net.proxy.Net;
  */
 public class MyNet {
     public static ApiOverview get(){
-        return new Net<ApiOverview>().RequestUtil(ApiOverview.class, C.Host.host);
+        return  Net.get(ApiOverview.class, C.Host.host);
     }
 }

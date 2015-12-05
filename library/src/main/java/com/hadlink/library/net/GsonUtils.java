@@ -10,8 +10,9 @@ import java.util.Date;
 /**
  * Created by lyao on 2015/8/27.
  */
-public class GsonUtils {
-    public static Gson newInstance() {
+public enum  GsonUtils {
+    INSTANCE;
+    private GsonUtils(){
         GsonBuilder builder = new GsonBuilder();
         builder
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
@@ -19,7 +20,12 @@ public class GsonUtils {
                 .enableComplexMapKeySerialization()
 //                .registerTypeAdapter(Response.class, new MyCommonGsonAdapter());
                 .registerTypeAdapter(Date.class, new DateTypeAdapter());
-
-        return builder.create();
+        gson = builder.create();
     }
+    public  Gson gson;
+
+    public Gson get(){
+        return gson;
+    }
+
 }
