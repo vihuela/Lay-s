@@ -16,6 +16,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
+import rx.Observable;
 
 /**
  * Created by zhouml on 2015/12/1.
@@ -39,33 +40,52 @@ public class NetProcess {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Object o = method.invoke(api, args);
 
-        Call call = (Call) method.invoke(api, args);
-        call.enqueue(new ApiUtils.callBack1() {
-            @Override public void onSuccess(Object o) {
-                CommonResponse response = (CommonResponse) o;
-                if(clazzResult == null){//Api接口返回值没有写第二级泛型
-                    post(o,method.getName());
-                    return;
+        if(Observable.class.isInstance(o)){
+            Observable ob = (Observable) o;
+            ApiUtils.getObservable(ob).subscribe(new ApiUtils.callBack1<Object>() {
+                @Override public void onSuccess(Object o) {
+                    processResult(o,method);
                 }
-                Object result = null;
-                if(response.getResult() == null){
-                }else if (response.getResult() instanceof List) {
-                    result = new ArrayList();
-                    List<LinkedTreeMap> list = (List<LinkedTreeMap>) response.getResult();
-                    for (LinkedTreeMap map : list) {
-                        JSONObject ob = new JSONObject(map);
-                        ((List) result).add(GsonUtils.INSTANCE.get().fromJson(ob.toString(),clazzResult));
-                    }
+            });
+        }else if(Call.class.isInstance(o)){
+            Call call = (Call) o;
+            call.enqueue(new ApiUtils.callBack1() {
+                @Override public void onSuccess(Object o) {
+                    processResult(o,method);
                 }
+            });
+        }
+
+
+
+    }
+
+    private void processResult(Object o,Method method){
+        CommonResponse response = (CommonResponse) o;
+        if(clazzResult == null){//Api接口返回值没有写第二级泛型
+            post(o,method.getName());
+            return;
+        }
+        Object result = null;
+        if(response.getResult() == null){
+            post(o,method.getName());
+            return;
+        }else if (response.getResult() instanceof List) {
+            result = new ArrayList();
+            List<LinkedTreeMap> list = (List<LinkedTreeMap>) response.getResult();
+            for (LinkedTreeMap map : list) {
+                JSONObject ob = new JSONObject(map);
+                ((List) result).add(GsonUtils.INSTANCE.get().fromJson(ob.toString(),clazzResult));
+            }
+        }
 //                else if (response.getResult() instanceof LinkedTreeMap) {
 //                    JSONObject ob = new JSONObject((LinkedTreeMap)response.getResult());
 //                    result =GsonUtils.INSTANCE.get().fromJson(ob.toString(),clazzResult) ;
 //                }
-                response.setResult(result);
-                post(response,method.getName());
-            }
-        });
+        response.setResult(result);
+        post(response,method.getName());
     }
 
     private void post(Object o,String methodName){

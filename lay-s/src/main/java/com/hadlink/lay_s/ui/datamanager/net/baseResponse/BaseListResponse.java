@@ -24,8 +24,6 @@ public class BaseListResponse<T> implements CommonResponse<List<T>> {
         this.data.pageData = ts;
     }
 
-
-
     public  class DataEntity {
         public int dataTotal;
         public boolean nextPage;
