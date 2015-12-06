@@ -9,7 +9,7 @@ import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.SmartAdapter;
 import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
 import com.hadlink.library.base.view.AppDelegate;
-import com.hadlink.library.conf.CommonEvent;
+import com.hadlink.library.event.CommonViewEvent;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -22,11 +22,12 @@ import java.util.List;
  */
 public class CommonRVDelegate extends AppDelegate {
 
+    public static final int REFRESH = 1;
+    public static final int LOADMORE = 2;
     public LoadingCallBack loadingCallBack;
     RecyclerMultiAdapter adapter;
     XRecyclerView rv;
     private int currentPageNum = 1;//当前加载页
-    private CommonEvent.IEvent currentEventTag;
 
     @Override public int getRootLayoutId() {
         return R.layout.aty_main;
@@ -53,13 +54,11 @@ public class CommonRVDelegate extends AppDelegate {
         rv.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override public void onRefresh() {
                 currentPageNum = 1;
-                currentEventTag = new CommonEvent.ListEvent(CommonEvent.ListEvent.Refresh);
                 if (loadingCallBack != null) loadingCallBack.onRefresh();
             }
 
             @Override public void onLoadMore() {
-                currentPageNum++;
-                currentEventTag = new CommonEvent.ListEvent(CommonEvent.ListEvent.LoadMore);
+                ++currentPageNum;
                 if (loadingCallBack != null) loadingCallBack.onLoadMore();
             }
         });
@@ -72,8 +71,10 @@ public class CommonRVDelegate extends AppDelegate {
 
     }
 
-    @Override public boolean bindEvent() {
-        return true;
+    @Override public void onEvent(CommonViewEvent event) {
+        super.onEvent(event);
+        rv.refreshComplete();
+        rv.loadMoreComplete();
     }
 
     public void setDatas(List datas) {
@@ -92,25 +93,6 @@ public class CommonRVDelegate extends AppDelegate {
 
     public int getCurrentPageNum() {
         return currentPageNum;
-    }
-
-    public CommonEvent.IEvent getCurrentEventTag() {
-        return currentEventTag;
-    }
-
-    @Override public void onEvent(CommonEvent.IEvent iEvent) {
-        super.onEvent(iEvent);
-        if (iEvent instanceof CommonEvent.ListEvent) {
-            switch (((CommonEvent.ListEvent) iEvent).currentEvent) {
-                case CommonEvent.ListEvent.Refresh:
-                    rv.refreshComplete();
-                    break;
-                case CommonEvent.ListEvent.LoadMore:
-                    rv.loadMoreComplete();
-                    currentPageNum--;
-                    break;
-            }
-        }
     }
 
     public interface LoadingCallBack {

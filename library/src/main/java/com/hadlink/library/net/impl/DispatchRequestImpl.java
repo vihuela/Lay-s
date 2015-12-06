@@ -2,8 +2,7 @@ package com.hadlink.library.net.impl;
 
 import com.google.gson.JsonSyntaxException;
 import com.hadlink.library.application.CommonApplication;
-import com.hadlink.library.conf.CommonEvent;
-import com.orhanobut.logger.Logger;
+import com.hadlink.library.event.CommonViewEvent;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -23,14 +22,8 @@ import rx.Subscriber;
  */
 public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Callback<T>, CommonDispatchRequest<T> {
 
-    //default event
-    public CommonEvent.IEvent eventTag = new CommonEvent.ToastEvent();
 
     public DispatchRequestImpl() {
-    }
-
-    public DispatchRequestImpl(CommonEvent.IEvent eventTag) {
-        this.eventTag = eventTag;
     }
 
     /**
@@ -43,7 +36,8 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
     @Override public final void onError(Throwable e) {
         if (e != null && e instanceof HttpException) {
             onDispatchError(Error.Server, ((HttpException) e).code() + "," + ((HttpException) e).message());
-        } else if (e != null && (e instanceof UnknownHostException || e instanceof ConnectException || e instanceof SocketTimeoutException)) {
+        } else if (e != null && (e instanceof UnknownHostException || e instanceof ConnectException || e instanceof
+                SocketTimeoutException)) {
             onDispatchError(Error.NetWork, e.getMessage());
         } else if (e != null && e instanceof JsonSyntaxException) {
             onDispatchError(Error.Internal, e.getMessage());
@@ -51,7 +45,7 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
             if (e instanceof IOException && IO_EXCEPTION.equalsIgnoreCase(e.getMessage()) ||
                     e instanceof SocketException && SOCKET_EXCEPTION.equalsIgnoreCase(e.getMessage())) {
                 //cancel request
-                Logger.e(e.getMessage());
+                printLog(e.getMessage());
                 return;
             }
             onDispatchError(Error.UnKnow, e != null ? e.getMessage() : "unKnowError");
@@ -76,7 +70,9 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
 
     @Override public final void onFailure(Throwable t) {
 
-        if (t != null && (t instanceof UnknownHostException || t instanceof ConnectException || t instanceof SocketTimeoutException)) {
+        if (t != null &&
+                (t instanceof UnknownHostException || t instanceof ConnectException || t instanceof SocketTimeoutException ||
+                (t.getCause() != null && t.getCause() instanceof UnknownHostException))) {
             onDispatchError(Error.NetWork, t.getMessage());
         } else if (t != null && t instanceof JsonSyntaxException) {
             onDispatchError(Error.Internal, t.getMessage());
@@ -84,7 +80,7 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
             if (t instanceof IOException && IO_EXCEPTION.equalsIgnoreCase(t.getMessage()) ||
                     t instanceof SocketException && SOCKET_EXCEPTION.equalsIgnoreCase(t.getMessage())) {
                 //cancel request
-                Logger.e(t.getMessage());
+                printLog(t.getMessage());
                 return;
             }
             onDispatchError(Error.UnKnow, t != null ? t.getMessage() : "unKnowError");
@@ -96,12 +92,14 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
      */
     @Override public final void onDispatchError(Error error, String message) {
 
+
         switch (error) {
             case Internal:
                 if (CommonApplication.getInstance().getAppDebug()) {
                     onInternalError(message);
                 } else {
-                    onInternalError("程序小哥开小差了");
+                    message = "程序小哥开小差了";
+                    onInternalError(message);
                 }
                 break;
             case Server:
@@ -113,7 +111,8 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
                 if (CommonApplication.getInstance().getAppDebug()) {
                     onNetWorkError(message);
                 } else {
-                    onNetWorkError("网络未连接");
+                    message = "网络未连接";
+                    onNetWorkError(message);
                 }
                 break;
             case UnKnow:
@@ -125,17 +124,12 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
         /**
          * 全局错误处理
          */
-        if (eventTag instanceof CommonEvent.ToastEvent) {
-            CommonEvent.ToastEvent event = (CommonEvent.ToastEvent) eventTag;
-            event.error = error;
-            event.message = message;
-            EventBus.getDefault().post(event);
-        } else if (eventTag instanceof CommonEvent.ListEvent) {
-            EventBus.getDefault().post(eventTag);
-        }
+        CommonViewEvent viewEvent = new CommonViewEvent();
+        viewEvent.message = message;
+        viewEvent.error = error;
+        EventBus.getDefault().post(viewEvent);
 
     }
-
 
     @Override public final void onDispatchSuccess(T t) {
         /**
@@ -150,32 +144,34 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
             }*/
             onSuccess(t);
         } else if (t != null && t.getClass() != null) {
-            Logger.e("check " + t.getClass().getSimpleName() + " whether inheritance CommonResponse Please");
+            printLog("check " + t.getClass().getSimpleName() + " whether inheritance CommonResponse Please");
         } else {
             //t is null
             onDispatchError(Error.UnKnow, "response bean is null");
         }
     }
 
-
     /**
      * can override
      */
     public void onNetWorkError(String message) {
-        Logger.e(message);
+        printLog(message);
     }
 
     public void onInternalError(String message) {
-        Logger.e(message);
+        printLog(message);
     }
 
     public void onServerError(String message) {
-        Logger.e(message);
+        printLog(message);
     }
 
     public void onUnKnowError(String message) {
-        Logger.e(message);
+        printLog(message);
     }
 
+    private void printLog(String message) {/*Logger.e(message);*/}
+
     public abstract void onSuccess(T t);
+
 }

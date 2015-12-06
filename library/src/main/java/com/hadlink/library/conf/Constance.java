@@ -8,8 +8,8 @@ public final class Constance {
     /**
      * 打印log体
      */
-    public static final class NetLog {
-        public static final boolean printBody = true;
+    public static final class NetDebug {
+        public static final boolean printBody = false;
     }
 
 }

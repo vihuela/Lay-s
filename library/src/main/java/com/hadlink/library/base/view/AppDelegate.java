@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.hadlink.library.conf.CommonEvent;
+import com.hadlink.library.event.CommonViewEvent;
 
 import de.greenrobot.event.EventBus;
 
@@ -22,7 +22,6 @@ public abstract class AppDelegate implements IDelegate {
 
     protected View mRootView;
     protected Context mContext;
-    private int currentPageNum;
 
     public abstract int getRootLayoutId();
 
@@ -31,8 +30,11 @@ public abstract class AppDelegate implements IDelegate {
         int rootLayoutId = getRootLayoutId();
         mRootView = inflater.inflate(rootLayoutId, container, false);
         mContext = mRootView.getContext();
-        if (bindEvent())
-            EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override public void destroy() {
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -76,18 +78,12 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     public void toast(CharSequence msg) {
-        Toast.makeText(mContext, msg, msg.toString().trim().length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, msg, msg.toString().trim().length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)
+                .show();
     }
 
-
-    /**
-     * 网络框架发送异常时接收
-     */
-    public void onEvent(CommonEvent.IEvent iEvent) {
-        if (iEvent instanceof CommonEvent.ToastEvent) {
-            toast(((CommonEvent.ToastEvent) iEvent).message);
-        }
+    @Override public void onEvent(CommonViewEvent event) {
+        if (event != null)
+            toast(event.message);
     }
-
-
 }

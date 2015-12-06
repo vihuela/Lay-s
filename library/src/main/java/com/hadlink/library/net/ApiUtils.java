@@ -1,7 +1,6 @@
 package com.hadlink.library.net;
 
 import com.hadlink.library.application.CommonApplication;
-import com.hadlink.library.conf.CommonEvent;
 import com.hadlink.library.net.impl.DispatchRequestImpl;
 
 import rx.Observable;
@@ -31,14 +30,10 @@ public abstract class ApiUtils {
      */
     public static abstract class callBack1<T> extends DispatchRequestImpl<T> {
 
-
         public callBack1() {
             super();
         }
 
-        public callBack1(CommonEvent.IEvent eventTag) {
-            super(eventTag);
-        }
     }
 
     /**
@@ -49,8 +44,5 @@ public abstract class ApiUtils {
             super();
         }
 
-        public callBack2(CommonEvent.IEvent eventTag) {
-            super(eventTag);
-        }
     }
 }

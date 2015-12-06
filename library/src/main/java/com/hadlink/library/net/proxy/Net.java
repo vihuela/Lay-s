@@ -1,5 +1,7 @@
 package com.hadlink.library.net.proxy;
 
+import com.hadlink.library.conf.NetSetter;
+
 import java.lang.reflect.Proxy;
 
 /**
@@ -8,15 +10,19 @@ import java.lang.reflect.Proxy;
 @SuppressWarnings("all")
 public class Net<T> {
 
-    public T RequestUtil(Class clazz,String host){
-        NetProcess real = new NetProcess(clazz,host);
-        T proxySubject = (T) Proxy.newProxyInstance(clazz.getClassLoader(),
-                new Class[]{clazz},
+
+
+    public T RequestUtil(Class apiOverViewClass, String host, NetSetter netSetter){
+        NetProcess real = new NetProcess(apiOverViewClass,host,netSetter);
+        T proxySubject = (T) Proxy.newProxyInstance(apiOverViewClass.getClassLoader(),
+                new Class[]{apiOverViewClass},
                 new NetProxy(real));
         return proxySubject;
     }
 
-    public static <T> T get(Class<T> clazz,String host){
-        return new Net<T>().RequestUtil(clazz, host);
+    public static <T> T get(Class<T> clazz,String host,NetSetter netSetter){
+        return new Net<T>().RequestUtil(clazz, host,netSetter);
     }
+
+
 }

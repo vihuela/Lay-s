@@ -100,7 +100,7 @@ public class OkHttpUtils {
                         + param
                         + String.format("---RES：%s %d %s", response.protocol().toString(), response.code(), response.message()) + "\n";
                 Log.d(TAG, beautyPrint);
-                if (Constance.NetLog.printBody)
+                if (Constance.NetDebug.printBody)
                     Logger.json(bodyString);
                 Log.d(TAG, "--------------REQUEST END--------------");
             } else {

@@ -4,8 +4,8 @@ import com.hadlink.lay_s.ui.conf.C;
 import com.hadlink.lay_s.ui.datamanager.net.MyNet;
 import com.hadlink.lay_s.ui.datamanager.net.baseResponse.BaseListResponse;
 import com.hadlink.lay_s.ui.delegate.CommonRVDelegate;
-import com.hadlink.library.Event.BusEvent;
 import com.hadlink.library.base.presenter.ActivityPresenter;
+import com.hadlink.library.event.NetEvent;
 
 public class MainAty extends ActivityPresenter<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
@@ -20,17 +20,24 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     }
 
     @Override
-    public void onEvent(BusEvent busEvent){
-        if(busEvent.what == C.Request.getWaitReplyList.hashCode()){
-            BaseListResponse waitingAskBeanBaseListResponse = (BaseListResponse) busEvent.obj;
-//            List<WaitingAskBean> list = waitingAskBeanBaseListResponse.getResult();
-//            WaitingAskBean bean = list.get(1);
+    public void onEvent(NetEvent netEvent) {
+        if (netEvent.what == C.Request.getWaitReplyList.hashCode()) {
+            BaseListResponse response = (BaseListResponse) netEvent.obj;
+            switch (netEvent.requestCode) {
+                case CommonRVDelegate.REFRESH:
+                    viewDelegate.setDatas(response.getResult());
+                    break;
+                case CommonRVDelegate.LOADMORE:
+                    viewDelegate.addDatas(response.getResult());
+                    break;
+            }
         }
     }
 
     private void requestList(boolean refresh) {
-        MyNet.get().getCertificates(190);
-        /*MyNet.get().getWaitReplyList(107,viewDelegate.getCurrentPageNum(),C.List.numPerPage);*/
+        /*MyNet.get().getCertificates(190);*/
+        int requestCode = refresh ? CommonRVDelegate.REFRESH : CommonRVDelegate.LOADMORE;
+        MyNet.get(requestCode).getWaitReplyList(107, viewDelegate.getCurrentPageNum(), C.List.numPerPage);
         /*MyNet.get().getTest1();*/
     }
 

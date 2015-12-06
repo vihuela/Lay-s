@@ -1,7 +1,8 @@
 package com.hadlink.library.net.proxy;
 
 import com.google.gson.internal.LinkedTreeMap;
-import com.hadlink.library.Event.BusEvent;
+import com.hadlink.library.conf.NetSetter;
+import com.hadlink.library.event.NetEvent;
 import com.hadlink.library.net.ApiUtils;
 import com.hadlink.library.net.GsonUtils;
 import com.hadlink.library.net.impl.CommonResponse;
@@ -23,12 +24,14 @@ import rx.Observable;
  */
 @SuppressWarnings("all")
 public class NetProcess {
+    NetSetter netSetter;
     Class apiOverview, clazzResult;
     String host;
 
-    public NetProcess(Class apiOverview, String host) {
+    public NetProcess(Class apiOverview, String host, NetSetter netSetter) {
         this.apiOverview = apiOverview;
         this.host = host;
+        this.netSetter = netSetter;
     }
 
     public void Process(final Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
@@ -45,20 +48,20 @@ public class NetProcess {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Object o = method.invoke(api, args);
+        Object o = (Object) method.invoke(api, args);
 
         if (Observable.class.isInstance(o)) {
             Observable ob = (Observable) o;
-            ApiUtils.getObservable(ob).subscribe(new ApiUtils.callBack2<Object>() {
-                @Override public void onSuccess(Object o) {
-                    processResult(o, method);
+            ApiUtils.getObservable(ob).subscribe(new ApiUtils.callBack2<CommonResponse>() {
+                @Override public void onSuccess(CommonResponse o) {
+                    if (o != null) processResult(o, method);
                 }
             });
         } else if (Call.class.isInstance(o)) {
             Call call = (Call) o;
-            call.enqueue(new ApiUtils.callBack1() {
-                @Override public void onSuccess(Object o) {
-                    processResult(o, method);
+            call.enqueue(new ApiUtils.callBack1<CommonResponse>() {
+                @Override public void onSuccess(CommonResponse o) {
+                    if (o != null) processResult(o, method);
                 }
             });
         }
@@ -66,44 +69,38 @@ public class NetProcess {
 
     }
 
-    private void processResult(Object o, Method method) {
-        Object res = null;
-        CommonResponse commonRes = null;
-        if (o instanceof CommonResponse) {
-            commonRes = (CommonResponse) o;
-            res = commonRes;
-        }
-        else res = o;
+    private void processResult(CommonResponse o, Method method) {
 
 
-        if (commonRes != null) {
+        if (o != null) {
 
             /**
              *  有二级泛型
              */
-            if (commonRes.getResult() != null && clazzResult != null) {
-                if (commonRes.getResult() instanceof List) {
-                    res = new ArrayList();
-                    List<LinkedTreeMap> list = (List<LinkedTreeMap>) commonRes.getResult();
+            if (o.getResult() != null && clazzResult != null) {
+                if (o.getResult() instanceof List) {
+                    List l = new ArrayList();
+                    List<LinkedTreeMap> list = (List<LinkedTreeMap>) o.getResult();
                     for (LinkedTreeMap map : list) {
                         JSONObject ob = new JSONObject(map);
-                        ((List) res).add(GsonUtils.INSTANCE.get().fromJson(ob.toString(), clazzResult));
+                        l.add(GsonUtils.INSTANCE.get().fromJson(ob.toString(), clazzResult));
                     }
-                    commonRes.setResult(res);
+                    o.setResult(l);
                 }
             }
         }
 
 
-        post(res, method.getName());
+        post(o, method.getName());
 
     }
 
-    private void post(Object o, String methodName) {
-        BusEvent busEvent = new BusEvent();
-        busEvent.what = methodName.hashCode();
-        busEvent.obj = o;
-        EventBus.getDefault().post(busEvent);
+    private void post(CommonResponse o, String methodName) {
+        NetEvent netEvent = new NetEvent();
+        netEvent.what = methodName.hashCode();
+        netEvent.obj = o;
+        netEvent.requestCode = netSetter != null ? netSetter.requestCode : -1;
+        EventBus.getDefault().post(netEvent);
     }
 
 
