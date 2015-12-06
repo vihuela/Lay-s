@@ -22,12 +22,13 @@ import java.util.List;
  */
 public class CommonRVDelegate extends AppDelegate {
 
+    public static final int LOAD_MORE_START_PAGE = 2;
     public static final int REFRESH = 1;
     public static final int LOADMORE = 2;
     public LoadingCallBack loadingCallBack;
     RecyclerMultiAdapter adapter;
     XRecyclerView rv;
-    private int currentPageNum = 1;//当前加载页
+    private int currentLoadNum = LOAD_MORE_START_PAGE;//加载更多默认页是从第二页开始
 
     @Override public int getRootLayoutId() {
         return R.layout.aty_main;
@@ -53,12 +54,10 @@ public class CommonRVDelegate extends AppDelegate {
         rv.setLaodingMoreProgressStyle(ProgressStyle.Pacman);
         rv.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override public void onRefresh() {
-                currentPageNum = 1;
                 if (loadingCallBack != null) loadingCallBack.onRefresh();
             }
 
             @Override public void onLoadMore() {
-                ++currentPageNum;
                 if (loadingCallBack != null) loadingCallBack.onLoadMore();
             }
         });
@@ -80,19 +79,22 @@ public class CommonRVDelegate extends AppDelegate {
     public void setDatas(List datas) {
         adapter.setItems(datas);
         rv.refreshComplete();
+        currentLoadNum = LOAD_MORE_START_PAGE;//重置加载更多页
     }
 
     public void addDatas(List datas) {
         adapter.addItems(datas);
         rv.loadMoreComplete();
+        ++currentLoadNum;
+        com.orhanobut.logger.Logger.d("currentLoadNum:" + currentLoadNum);
     }
 
     public void setCallBack(LoadingCallBack loadingCallBack) {
         this.loadingCallBack = loadingCallBack;
     }
 
-    public int getCurrentPageNum() {
-        return currentPageNum;
+    public int getCurrentPageNum(boolean refresh) {
+        return refresh ? 1 : currentLoadNum;
     }
 
     public interface LoadingCallBack {
