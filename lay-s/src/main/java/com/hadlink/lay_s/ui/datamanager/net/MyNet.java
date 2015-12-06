@@ -6,6 +6,10 @@ import com.hadlink.library.net.proxy.Net;
 /**
  * Created by zhouml on 2015/12/1.
  */
+
+/**
+ * 针对具体项目配置项
+ */
 public class MyNet {
     public static ApiOverview get(){
         return  Net.get(ApiOverview.class, C.Host.host);

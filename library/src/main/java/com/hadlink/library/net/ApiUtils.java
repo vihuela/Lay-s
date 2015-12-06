@@ -16,7 +16,8 @@ public abstract class ApiUtils {
 
     public static <T> T createApi(Class<T> cls, String host) {
 
-        return RetrofitUtils.createApi(CommonApplication.getInstance(), cls, host, CommonApplication.getInstance().getAppDebug());
+        return RetrofitUtils.createApi(CommonApplication.getInstance(), cls, host, CommonApplication.getInstance()
+                .getAppDebug());
     }
 
     public static <T> Observable<T> getObservable(Observable<T> observable) {
@@ -43,13 +44,13 @@ public abstract class ApiUtils {
     /**
      * rxJava noNeed non200 check
      */
-    /*public static abstract class callBack2<T> extends DispatchRequestImpl<T> {
+    public static abstract class callBack2<T> extends DispatchRequestImpl<T> {
         public callBack2() {
-            super(new CommonEvent.ToastEvent());
+            super();
         }
 
         public callBack2(CommonEvent.IEvent eventTag) {
             super(eventTag);
         }
-    }*/
+    }
 }

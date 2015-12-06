@@ -29,9 +29,9 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     }
 
     private void requestList(boolean refresh) {
-//        MyNet.get().getCertificates(190);
-//        MyNet.get().getWaitReplyList(107,viewDelegate.getCurrentPageNum(),C.List.numPerPage);
-        MyNet.get().getTest1();
+        MyNet.get().getCertificates(190);
+        /*MyNet.get().getWaitReplyList(107,viewDelegate.getCurrentPageNum(),C.List.numPerPage);*/
+        /*MyNet.get().getTest1();*/
     }
 
     @Override public void onRefresh() {

@@ -10,21 +10,23 @@ import java.util.Date;
 /**
  * Created by lyao on 2015/8/27.
  */
-public enum  GsonUtils {
+public enum GsonUtils {
     INSTANCE;
-    private GsonUtils(){
+
+    public Gson gson;
+
+    GsonUtils() {
         GsonBuilder builder = new GsonBuilder();
         builder
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .enableComplexMapKeySerialization()
-//                .registerTypeAdapter(Response.class, new MyCommonGsonAdapter());
+                        //                .registerTypeAdapter(Response.class, new MyCommonGsonAdapter());
                 .registerTypeAdapter(Date.class, new DateTypeAdapter());
         gson = builder.create();
     }
-    public  Gson gson;
 
-    public Gson get(){
+    public Gson get() {
         return gson;
     }
 

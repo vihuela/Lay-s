@@ -7,9 +7,8 @@ package com.hadlink.library.net.impl;
  */
 public interface CommonResponse<T> {
 
-      T getResult();
+    T getResult();
+
     void setResult(T t);
 
-//    List<T> getListResult();
-//    void setListReslut(List<T> list);
 }

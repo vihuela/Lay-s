@@ -5,10 +5,11 @@ import java.lang.reflect.Proxy;
 /**
  * Created by zhouml on 2015/12/1.
  */
+@SuppressWarnings("all")
 public class Net<T> {
 
-    public T RequestUtil(Class clazz,String URL){
-        NetProcess real = new NetProcess(clazz,URL);
+    public T RequestUtil(Class clazz,String host){
+        NetProcess real = new NetProcess(clazz,host);
         T proxySubject = (T) Proxy.newProxyInstance(clazz.getClassLoader(),
                 new Class[]{clazz},
                 new NetProxy(real));

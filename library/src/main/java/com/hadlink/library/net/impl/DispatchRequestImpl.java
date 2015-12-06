@@ -150,9 +150,9 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
             }*/
             onSuccess(t);
         } else if (t != null && t.getClass() != null) {
-            Logger.e("Please check " + t.getClass().getSimpleName() + "whether inheritance CommonResponse");
+            Logger.e("check " + t.getClass().getSimpleName() + " whether inheritance CommonResponse Please");
         } else {
-            //tis null
+            //t is null
             onDispatchError(Error.UnKnow, "response bean is null");
         }
     }
