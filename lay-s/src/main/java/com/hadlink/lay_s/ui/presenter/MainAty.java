@@ -48,4 +48,6 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
     @Override public void onLoadMore() {
         requestList(false);
     }
+
+
 }
