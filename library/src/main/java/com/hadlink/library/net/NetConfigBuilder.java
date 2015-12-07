@@ -13,7 +13,7 @@ public class NetConfigBuilder {
     private String log_tag = "lays";
     private Application app;
 
-    public NetConfigBuilder setRESPONSE_CACHE(String response_cache) {
+    public NetConfigBuilder responseCacheDir(String response_cache) {
         this.response_cache = response_cache;
         return this;
     }
@@ -33,22 +33,22 @@ public class NetConfigBuilder {
         return this;
     }
 
-    public NetConfigBuilder setPRINT_BODY(boolean print_body) {
+    public NetConfigBuilder printResponseBody(boolean print_body) {
         this.print_body = print_body;
         return this;
     }
 
-    public NetConfigBuilder setLOG(boolean log) {
+    public NetConfigBuilder log(boolean log) {
         this.log = log;
         return this;
     }
 
-    public NetConfigBuilder setLOG_TAG(String log_tag) {
+    public NetConfigBuilder logTag(String log_tag) {
         this.log_tag = log_tag;
         return this;
     }
 
-    public NetConfigBuilder setApp(Application app) {
+    public NetConfigBuilder appContext(Application app) {
         this.app = app;
         return this;
     }

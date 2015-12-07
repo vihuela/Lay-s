@@ -21,11 +21,11 @@ public class App extends CommonApplication {
         super.onCreate();
 
         final NetConfig netConfig = new NetConfigBuilder()
-                .setApp(this)
-                .setRESPONSE_CACHE("you_cache_dir_name")
-                .setLOG(true)
-                .setPRINT_BODY(false)
-                .setLOG_TAG("you_tag_name")
+                .appContext(this)
+                .responseCacheDir("you_cache_dir_name")
+                .log(true)
+                .logTag("you_tag_name")
+                .printResponseBody(false)
                 .createNetConfig();
 
         NetUtils.setNetConfig(netConfig);
