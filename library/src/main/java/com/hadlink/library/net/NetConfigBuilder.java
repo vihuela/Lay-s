@@ -18,17 +18,17 @@ public class NetConfigBuilder {
         return this;
     }
 
-    public NetConfigBuilder setRESPONSE_CACHE_SIZE(int response_cache_size) {
+    public NetConfigBuilder responseCacheSize(int response_cache_size) {
         this.response_cache_size = response_cache_size;
         return this;
     }
 
-    public NetConfigBuilder setHTTP_CONNECT_TIMEOUT(int http_connect_timeout) {
+    public NetConfigBuilder connectionTimeout(int http_connect_timeout) {
         this.http_connect_timeout = http_connect_timeout;
         return this;
     }
 
-    public NetConfigBuilder setHTTP_READ_TIMEOUT(int http_read_timeout) {
+    public NetConfigBuilder readTimeout(int http_read_timeout) {
         this.http_read_timeout = http_read_timeout;
         return this;
     }
