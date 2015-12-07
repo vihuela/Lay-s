@@ -23,8 +23,8 @@ public class App extends CommonApplication {
         final NetConfig netConfig = new NetConfigBuilder()
                 .setApp(this)
                 .setRESPONSE_CACHE("you_cache_dir_name")
-                .setLOG(getLog())
-                .setPRINT_BODY(true)
+                .setLOG(true)
+                .setPRINT_BODY(false)
                 .setLOG_TAG("you_tag_name")
                 .createNetConfig();
 

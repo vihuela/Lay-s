@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * View delegate base class
  * 视图层代理的基类
@@ -28,11 +26,10 @@ public abstract class AppDelegate implements IDelegate {
         int rootLayoutId = getRootLayoutId();
         mRootView = inflater.inflate(rootLayoutId, container, false);
         mContext = mRootView.getContext();
-        EventBus.getDefault().register(this);
     }
 
     @Override public void destroy() {
-        EventBus.getDefault().unregister(this);
+
     }
 
     @Override

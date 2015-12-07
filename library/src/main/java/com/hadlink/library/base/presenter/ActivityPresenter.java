@@ -7,8 +7,6 @@ import android.view.Menu;
 
 import com.hadlink.library.base.view.IDelegate;
 
-import de.greenrobot.event.EventBus;
-
 
 /**
  * Presenter base class for Activity
@@ -41,12 +39,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
 
     @Override protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
     }
 
     @Override protected void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
     }
 
     protected void bindEvenListener() {
