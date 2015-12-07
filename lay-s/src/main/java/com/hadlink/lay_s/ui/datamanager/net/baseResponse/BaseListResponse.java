@@ -24,6 +24,10 @@ public class BaseListResponse<T> implements CommonResponse<List<T>> {
         this.data.pageData = ts;
     }
 
+    @Override public boolean isValid() {
+        return code == 200;
+    }
+
     public  class DataEntity {
         public int dataTotal;
         public boolean nextPage;

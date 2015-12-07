@@ -1,6 +1,5 @@
 package com.hadlink.library.net;
 
-import com.hadlink.library.application.CommonApplication;
 import com.hadlink.library.net.impl.DispatchRequestImpl;
 
 import rx.Observable;
@@ -10,13 +9,13 @@ import rx.schedulers.Schedulers;
 /**
  * Created by lyao on 2015/8/27.
  */
-public abstract class ApiUtils {
-
-
+public abstract class NetUtils {
+    public static NetConfig netConfig ;
+    public static void setNetConfig(NetConfig netConf){
+        NetUtils.netConfig = netConf;
+    }
     public static <T> T createApi(Class<T> cls, String host) {
-
-        return RetrofitUtils.createApi(CommonApplication.getInstance(), cls, host, CommonApplication.getInstance()
-                .getAppDebug());
+        return RetrofitUtils.createApi(netConfig.app, cls, host);
     }
 
     public static <T> Observable<T> getObservable(Observable<T> observable) {
@@ -28,21 +27,12 @@ public abstract class ApiUtils {
     /**
      * call noNeed non200 check
      */
-    public static abstract class callBack1<T> extends DispatchRequestImpl<T> {
+    public static abstract class callBack<T> extends DispatchRequestImpl<T> {
 
-        public callBack1() {
+        public callBack() {
             super();
         }
-
     }
 
-    /**
-     * rxJava noNeed non200 check
-     */
-    public static abstract class callBack2<T> extends DispatchRequestImpl<T> {
-        public callBack2() {
-            super();
-        }
 
-    }
 }

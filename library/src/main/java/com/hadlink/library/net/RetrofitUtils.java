@@ -15,10 +15,10 @@ public class RetrofitUtils {
      * path end no add "/"
      */
 
-    public static Retrofit singleton;
+     static Retrofit singleton;
 
 
-    public static <T> T createApi(Context context, Class<T> clazz, String host, boolean debug) {
+     static <T> T createApi(Context context, Class<T> clazz, String host) {
         if (singleton == null) {
             synchronized (RetrofitUtils.class) {
                 if (singleton == null) {
@@ -26,7 +26,7 @@ public class RetrofitUtils {
                             .baseUrl(host)
                             .addConverterFactory(GsonConverterFactory.create(GsonUtils.INSTANCE.get()))
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                            .client(OkHttpUtils.getInstance(context, debug))
+                            .client(OkHttpUtils.getInstance(context))
                             .build();
                 }
             }

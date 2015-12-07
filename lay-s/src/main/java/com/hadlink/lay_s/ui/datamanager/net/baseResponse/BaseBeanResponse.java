@@ -31,5 +31,9 @@ public class BaseBeanResponse<T> implements CommonResponse<T>{
         data = t;
     }
 
+    @Override public boolean isValid() {
+        return code==200;
+    }
+
 
 }

@@ -2,7 +2,7 @@ package com.hadlink.lay_s.ui.datamanager.net;
 
 import com.hadlink.lay_s.ui.conf.C;
 import com.hadlink.library.conf.NetSetter;
-import com.hadlink.library.net.ApiUtils;
+import com.hadlink.library.net.NetUtils;
 import com.hadlink.library.net.proxy.Net;
 
 /**
@@ -20,6 +20,6 @@ public class MyNet {
     }
 
     public static ApiOverview getOrigin() {
-        return ApiUtils.createApi(ApiOverview.class, C.Host.host);
+        return NetUtils.createApi(ApiOverview.class, C.Host.host);
     }
 }

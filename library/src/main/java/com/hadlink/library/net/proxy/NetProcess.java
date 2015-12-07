@@ -3,8 +3,7 @@ package com.hadlink.library.net.proxy;
 import com.google.gson.internal.LinkedTreeMap;
 import com.hadlink.library.conf.NetSetter;
 import com.hadlink.library.event.NetEvent;
-import com.hadlink.library.net.ApiUtils;
-import com.hadlink.library.net.GsonUtils;
+import com.hadlink.library.net.NetUtils;
 import com.hadlink.library.net.impl.CommonResponse;
 
 import org.json.JSONObject;
@@ -23,6 +22,7 @@ import rx.Observable;
  * Created by zhouml on 2015/12/1.
  */
 @SuppressWarnings("all")
+@Deprecated
 public class NetProcess {
     NetSetter netSetter;
     Class apiOverview, clazzResult;
@@ -35,7 +35,7 @@ public class NetProcess {
     }
 
     public void Process(final Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
-        Object api = ApiUtils.createApi(this.apiOverview, this.host);
+        Object api = NetUtils.createApi(this.apiOverview, this.host);
         ParameterizedType typeCallOROb, typeBeanORList;
         try {
             typeCallOROb = (ParameterizedType) method.getGenericReturnType();
@@ -52,14 +52,14 @@ public class NetProcess {
 
         if (Observable.class.isInstance(o)) {
             Observable ob = (Observable) o;
-            ApiUtils.getObservable(ob).subscribe(new ApiUtils.callBack2<CommonResponse>() {
+            NetUtils.getObservable(ob).subscribe(new NetUtils.callBack<CommonResponse>() {
                 @Override public void onSuccess(CommonResponse o) {
                     if (o != null) processResult(o, method);
                 }
             });
         } else if (Call.class.isInstance(o)) {
             Call call = (Call) o;
-            call.enqueue(new ApiUtils.callBack1<CommonResponse>() {
+            call.enqueue(new NetUtils.callBack<CommonResponse>() {
                 @Override public void onSuccess(CommonResponse o) {
                     if (o != null) processResult(o, method);
                 }
@@ -83,7 +83,7 @@ public class NetProcess {
                     List<LinkedTreeMap> list = (List<LinkedTreeMap>) o.getResult();
                     for (LinkedTreeMap map : list) {
                         JSONObject ob = new JSONObject(map);
-                        l.add(GsonUtils.INSTANCE.get().fromJson(ob.toString(), clazzResult));
+                        /*l.add(GsonUtils.INSTANCE.get().fromJson(ob.toString(), clazzResult));*/
                     }
                     o.setResult(l);
                 }

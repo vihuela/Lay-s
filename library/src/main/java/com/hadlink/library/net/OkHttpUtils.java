@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.hadlink.library.application.CommonApplication;
-import com.hadlink.library.conf.Constance;
 import com.orhanobut.logger.Logger;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Interceptor;
@@ -24,13 +23,13 @@ import okio.Buffer;
  * Created by lyao on 2015/8/27.
  */
 public class OkHttpUtils {
-    public final static String RESPONSE_CACHE = "chehu_expert_cache";
-    public final static int RESPONSE_CACHE_SIZE = 5000;
-    public final static int HTTP_CONNECT_TIMEOUT = 8000;
-    public final static int HTTP_READ_TIMEOUT = 5000;
-    private static OkHttpClient singleton;
+     final static String RESPONSE_CACHE = NetUtils.netConfig.RESPONSE_CACHE;
+     final static int RESPONSE_CACHE_SIZE = NetUtils.netConfig.RESPONSE_CACHE_SIZE;
+     final static int HTTP_CONNECT_TIMEOUT = NetUtils.netConfig.HTTP_CONNECT_TIMEOUT;
+     final static int HTTP_READ_TIMEOUT = NetUtils.netConfig.HTTP_READ_TIMEOUT;
+     static OkHttpClient singleton;
 
-    public static OkHttpClient getInstance(final Context context, boolean debug) {
+     static OkHttpClient getInstance(final Context context) {
         if (singleton == null) {
             synchronized (OkHttpUtils.class) {
                 if (singleton == null) {
@@ -50,7 +49,7 @@ public class OkHttpUtils {
                         }
                     };
                     singleton.interceptors().add(interceptor);
-                    if (debug)
+                    if (NetUtils.netConfig.LOG)
                         singleton.interceptors().add(new LoggingInterceptor());
                 }
             }
@@ -58,7 +57,7 @@ public class OkHttpUtils {
         return singleton;
     }
 
-    public static String bodyToString(final Request request) {
+     static String bodyToString(final Request request) {
         try {
             final Request copy = request.newBuilder().build();
             final Buffer buffer = new Buffer();
@@ -69,7 +68,7 @@ public class OkHttpUtils {
         }
     }
 
-    public static class LoggingInterceptor implements Interceptor {
+     static class LoggingInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
             long t1 = System.nanoTime();
@@ -100,7 +99,7 @@ public class OkHttpUtils {
                         + param
                         + String.format("---RES：%s %d %s", response.protocol().toString(), response.code(), response.message()) + "\n";
                 Log.d(TAG, beautyPrint);
-                if (Constance.NetDebug.printBody)
+                if (NetUtils.netConfig.PRINT_BODY)
                     Logger.json(bodyString);
                 Log.d(TAG, "--------------REQUEST END--------------");
             } else {

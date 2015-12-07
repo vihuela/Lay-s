@@ -1,11 +1,19 @@
 package com.hadlink.lay_s.ui.presenter;
 
+import android.util.Log;
+
 import com.hadlink.lay_s.ui.conf.C;
+import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.lay_s.ui.datamanager.net.MyNet;
 import com.hadlink.lay_s.ui.datamanager.net.baseResponse.BaseListResponse;
+import com.hadlink.lay_s.ui.datamanager.net.netcallback.MyNetCallBack;
 import com.hadlink.lay_s.ui.delegate.CommonRVDelegate;
 import com.hadlink.library.base.presenter.ActivityPresenter;
 import com.hadlink.library.event.NetEvent;
+
+import java.util.List;
+
+import retrofit.Call;
 
 public class MainAty extends ActivityPresenter<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
@@ -25,19 +33,33 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
             BaseListResponse response = (BaseListResponse) netEvent.obj;
             switch (netEvent.requestCode) {
                 case CommonRVDelegate.REFRESH:
-                    viewDelegate.setDatas(response.getResult());
+//                    viewDelegate.setDatas(response.getResult());
                     break;
                 case CommonRVDelegate.LOADMORE:
-                    viewDelegate.addDatas(response.getResult());
+//                    viewDelegate.addDatas(response.getResult());
                     break;
             }
         }
     }
 
     private void requestList(boolean refresh) {
-        /*MyNet.get().getCertificates(190);*/
+//        MyNet.get().getCertificates(190);
         int requestCode = refresh ? CommonRVDelegate.REFRESH : CommonRVDelegate.LOADMORE;
-        MyNet.get(requestCode).getWaitReplyList(107, viewDelegate.getCurrentPageNum(refresh), C.List.numPerPage);
+        /*MyNet.get(requestCode).getWaitReplyList(107, viewDelegate.getCurrentPageNum(refresh), C.List.numPerPage);*/
+        final Call<BaseListResponse<WaitingAskBean>> waitReplyList = MyNet.getOrigin().getWaitReplyList(107, viewDelegate.getCurrentPageNum(refresh), C.List.numPerPage);
+        waitReplyList.enqueue(new MyNetCallBack<BaseListResponse<WaitingAskBean>>() {
+            @Override public void onSuccess(BaseListResponse<WaitingAskBean> waitingAskBeanBaseListResponse) {
+               List<WaitingAskBean> list = waitingAskBeanBaseListResponse.getResult();
+                Log.d("result",list.toString());
+            }
+
+            @Override public void onDispatchError(Error error, Object message) {
+                super.onDispatchError(error, message);
+                /**
+                 * 这里可以自定义接口错误处理
+                 */
+            }
+        });
         /*MyNet.get().getTest1();*/
     }
 

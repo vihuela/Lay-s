@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 /**
  * Created by zhouml on 2015/12/1.
  */
+@Deprecated
 public class NetProxy implements InvocationHandler
 {
     private NetProcess proxied;
