@@ -4,8 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.hadlink.library.application.CommonApplication;
-import com.orhanobut.logger.Logger;
+import com.hadlink.library.util.JsonPrinter;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
@@ -72,7 +71,7 @@ public class OkHttpUtils {
         @Override
         public Response intercept(Chain chain) throws IOException {
             long t1 = System.nanoTime();
-            String TAG = CommonApplication.getInstance().getAppLogTag();
+            String TAG = NetUtils.netConfig.LOG_TAG;
 
             Request request = chain.request();
             String param = "post".equalsIgnoreCase(request.method()) ? "---REQ：" + "\n" + "       " + bodyToString(request) + "\n" : "";
@@ -100,7 +99,7 @@ public class OkHttpUtils {
                         + String.format("---RES：%s %d %s", response.protocol().toString(), response.code(), response.message()) + "\n";
                 Log.d(TAG, beautyPrint);
                 if (NetUtils.netConfig.PRINT_BODY)
-                    Logger.json(bodyString);
+                    JsonPrinter.json(bodyString);
                 Log.d(TAG, "--------------REQUEST END--------------");
             } else {
                 beautyPrint = "--------------REQUEST START------------" + "\n"

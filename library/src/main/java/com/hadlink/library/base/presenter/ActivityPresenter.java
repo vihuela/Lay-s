@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.hadlink.library.base.view.IDelegate;
-import com.hadlink.library.event.NetEventListener;
 
 import de.greenrobot.event.EventBus;
 
@@ -17,7 +16,7 @@ import de.greenrobot.event.EventBus;
  *
  * @param <T> View delegate class type
  */
-public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity implements NetEventListener {
+public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
     protected T viewDelegate;
 
     public ActivityPresenter() {

@@ -9,7 +9,6 @@ import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.SmartAdapter;
 import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
 import com.hadlink.library.base.view.AppDelegate;
-import com.hadlink.library.event.CommonViewEvent;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -70,12 +69,6 @@ public class CommonRVDelegate extends AppDelegate {
 
     }
 
-    @Override public void onEvent(CommonViewEvent event) {
-        super.onEvent(event);
-        rv.refreshComplete();
-        rv.loadMoreComplete();
-    }
-
     public void setDatas(List datas) {
         adapter.setItems(datas);
         rv.refreshComplete();
@@ -87,6 +80,11 @@ public class CommonRVDelegate extends AppDelegate {
         rv.loadMoreComplete();
         ++currentLoadNum;
         com.orhanobut.logger.Logger.d("currentLoadNum:" + currentLoadNum);
+    }
+
+    public void error() {
+        rv.refreshComplete();
+        rv.loadMoreComplete();
     }
 
     public void setCallBack(LoadingCallBack loadingCallBack) {

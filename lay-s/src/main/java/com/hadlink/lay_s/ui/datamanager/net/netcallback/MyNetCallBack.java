@@ -1,6 +1,5 @@
 package com.hadlink.lay_s.ui.datamanager.net.netcallback;
 
-import android.content.Context;
 import android.widget.Toast;
 
 import com.hadlink.lay_s.ui.app.App;
@@ -10,13 +9,6 @@ import com.hadlink.library.net.NetUtils;
  * Created by zhouml on 2015/12/7.
  */
 public abstract class MyNetCallBack<T> extends NetUtils.callBack<T> {
-
-    Context context;
-
-
-    public MyNetCallBack(){
-        this.context = App.getInstance();
-    }
 
     @Override public void onDispatchError(Error error, Object message) {
         switch (error){
@@ -41,6 +33,6 @@ public abstract class MyNetCallBack<T> extends NetUtils.callBack<T> {
         }
     }
     public void Toast(String msg){
-        Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+        Toast.makeText(App.getInstance(),msg,Toast.LENGTH_LONG).show();
     }
 }

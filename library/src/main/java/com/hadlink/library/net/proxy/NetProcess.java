@@ -53,6 +53,10 @@ public class NetProcess {
         if (Observable.class.isInstance(o)) {
             Observable ob = (Observable) o;
             NetUtils.getObservable(ob).subscribe(new NetUtils.callBack<CommonResponse>() {
+                @Override public void onDispatchError(Error error, Object message) {
+
+                }
+
                 @Override public void onSuccess(CommonResponse o) {
                     if (o != null) processResult(o, method);
                 }
@@ -60,6 +64,10 @@ public class NetProcess {
         } else if (Call.class.isInstance(o)) {
             Call call = (Call) o;
             call.enqueue(new NetUtils.callBack<CommonResponse>() {
+                @Override public void onDispatchError(Error error, Object message) {
+
+                }
+
                 @Override public void onSuccess(CommonResponse o) {
                     if (o != null) processResult(o, method);
                 }

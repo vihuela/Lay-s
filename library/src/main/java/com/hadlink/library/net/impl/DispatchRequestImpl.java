@@ -1,9 +1,11 @@
 package com.hadlink.library.net.impl;
 
+import android.util.Log;
+
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.LinkedTreeMap;
-import com.hadlink.library.application.CommonApplication;
 import com.hadlink.library.net.GsonUtils;
+import com.hadlink.library.net.NetUtils;
 
 import org.json.JSONObject;
 
@@ -29,11 +31,11 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
 
     private Object result;
 
-    protected Object getResult(){
-        return result;
+    public DispatchRequestImpl() {
     }
 
-    public DispatchRequestImpl() {
+    protected Object getResult() {
+        return result;
     }
 
     /**
@@ -82,7 +84,7 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
 
         if (t != null &&
                 (t instanceof UnknownHostException || t instanceof ConnectException || t instanceof SocketTimeoutException ||
-                (t.getCause() != null && t.getCause() instanceof UnknownHostException))) {
+                        (t.getCause() != null && t.getCause() instanceof UnknownHostException))) {
             onDispatchError(Error.NetWork, t.getMessage());
         } else if (t != null && t instanceof JsonSyntaxException) {
             onDispatchError(Error.Internal, t.getMessage());
@@ -97,48 +99,9 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
         }
     }
 
-    /**
-     * common
-     */
-    @Override public void onDispatchError(Error error, Object message) {
+    @Override public abstract void onDispatchError(Error error, Object message);
 
-
-        switch (error) {
-            case Internal:
-                if (CommonApplication.getInstance().getAppDebug()) {
-                    onInternalError( message.toString());
-                } else {
-                    message = "程序小哥开小差了";
-                    onInternalError(message.toString());
-                }
-                break;
-            case Server:
-                if (CommonApplication.getInstance().getAppDebug()) {
-                    onServerError(message.toString());
-                }
-                break;
-            case NetWork:
-                if (CommonApplication.getInstance().getAppDebug()) {
-                    onNetWorkError(message.toString());
-                } else {
-                    message = "网络未连接";
-                    onNetWorkError(message.toString());
-                }
-                break;
-            case UnKnow:
-                if (CommonApplication.getInstance().getAppDebug()) {
-                    onUnKnowError(message.toString());
-                }
-                break;
-            case Invalid:
-                if (CommonApplication.getInstance().getAppDebug()) {
-                    onInVaildError((T) message);
-                }
-                break;
-        }
-
-    }
-
+    @SuppressWarnings("all")
     @Override public final void onDispatchSuccess(T t) {
         this.result = t;
         /**
@@ -146,11 +109,11 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
          */
         if (t != null && t instanceof CommonResponse) {
             CommonResponse c = (CommonResponse) t;
-            if(c.isValid()){
+            if (c.isValid()) {
                 /**
                  *  有二级List
                  */
-                if (c.getResult() != null ) {
+                if (c.getResult() != null) {
                     if (List.class.isInstance(c.getResult())) {
                         try {
                             ParameterizedType typeCallOROb = (ParameterizedType) this.getClass().getGenericSuperclass();
@@ -166,14 +129,13 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
                                 l.add(GsonUtils.INSTANCE.get().fromJson(ob.toString(), clazzResult));
                             }
                             c.setResult(l);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 onSuccess(t);
-            }
-            else{
+            } else {
                 onDispatchError(Error.Invalid, t);
             }
         } else if (t != null && t.getClass() != null) {
@@ -184,28 +146,10 @@ public abstract class DispatchRequestImpl<T> extends Subscriber<T> implements Ca
         }
     }
 
-    /**
-     * can override
-     */
-    public void onNetWorkError(String message) {
-        printLog(message);
+    private void printLog(String s) {
+        Log.e(NetUtils.netConfig.LOG_TAG, s);
     }
 
-    public void onInternalError(String message) {
-        printLog(message);
-    }
-
-    public void onServerError(String message) {
-        printLog(message);
-    }
-
-    public void onUnKnowError(String message) {
-        printLog(message);
-    }
-    public void onInVaildError(T o){
-        printLog(o.toString());
-    }
-    private void printLog(String message) {/*Logger.e(message);*/}
 
     public abstract void onSuccess(T t);
 

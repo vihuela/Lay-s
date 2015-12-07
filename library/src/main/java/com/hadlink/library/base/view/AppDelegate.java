@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.hadlink.library.event.CommonViewEvent;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -80,10 +78,5 @@ public abstract class AppDelegate implements IDelegate {
     public void toast(CharSequence msg) {
         Toast.makeText(mContext, msg, msg.toString().trim().length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)
                 .show();
-    }
-
-    @Override public void onEvent(CommonViewEvent event) {
-        if (event != null)
-            toast(event.message);
     }
 }
