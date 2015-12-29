@@ -12,15 +12,20 @@ import java.util.List;
  * Common methods for adapters added by the library
  */
 public interface BasicSmartAdapter {
-    @UiThread void setItems(List items);
+    @UiThread
+    void setItems(List items);
 
-    @UiThread void addItem(Object item);
+    @UiThread
+    void addItem(Object item);
 
-    @UiThread void delItem(Object item);
+    @UiThread
+    void delItem(Object item);
 
-    @UiThread void addItems(List items);
+    @UiThread
+    void addItems(List items);
 
-    @UiThread void clearItems();
+    @UiThread
+    void clearItems();
 
     ViewEventListener getViewEventListener();
 

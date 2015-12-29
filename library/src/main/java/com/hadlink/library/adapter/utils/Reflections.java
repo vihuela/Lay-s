@@ -18,7 +18,7 @@ public class Reflections {
     /**
      * Returns the {@code Method}  present on the class provided by clazz, with the name given on the name
      * parameter and the parameter types specified in params.
-     * <p>
+     * <p/>
      * The reflection calls are cached in memory so subsequent calls to this method will be fast.
      *
      * @param clazz  class that contains the wanted method
@@ -44,7 +44,7 @@ public class Reflections {
     /**
      * Returns the {@code Constructor} for the class provided, with the params given.
      * No params mean the empty constructor.
-     * <p>
+     * <p/>
      * The reflection calls are cached in memory so subsequent calls to this method will be fast.
      *
      * @param clazz  class where we want to get the constructor

@@ -22,8 +22,6 @@ import java.util.List;
 public class CommonRVDelegate extends AppDelegate {
 
     public static final int LOAD_MORE_START_PAGE = 2;
-    public static final int REFRESH = 1;
-    public static final int LOADMORE = 2;
     public LoadingCallBack loadingCallBack;
     RecyclerMultiAdapter adapter;
     XRecyclerView rv;

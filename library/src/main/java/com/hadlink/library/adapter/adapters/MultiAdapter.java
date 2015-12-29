@@ -29,7 +29,7 @@ public class MultiAdapter extends BaseAdapter implements BasicSmartAdapter {
         this(mapper, listItems, createDefaultBuilder());
     }
 
-    public MultiAdapter(Mapper mapper, List listItems, BindableLayoutBuilder builder) {
+    public MultiAdapter(Mapper mapper, List listItems,BindableLayoutBuilder builder) {
         this.listItems = listItems;
         this.mapper = mapper;
         if (builder == null) {
@@ -39,13 +39,9 @@ public class MultiAdapter extends BaseAdapter implements BasicSmartAdapter {
         }
     }
 
-    private static BindableLayoutBuilder createDefaultBuilder() {
-        return new DefaultBindableLayoutBuilder();
-    }
-
     @Override
     public void setItems(List items) {
-        ThreadHelper.crashIfBackgroundThread();
+       ThreadHelper.crashIfBackgroundThread();
         listItems = items;
         if (autoDataSetChanged) {
             notifyDataSetChanged();
@@ -54,7 +50,7 @@ public class MultiAdapter extends BaseAdapter implements BasicSmartAdapter {
 
     @Override
     public void addItem(Object item) {
-        ThreadHelper.crashIfBackgroundThread();
+ThreadHelper.crashIfBackgroundThread();
         listItems.add(item);
         if (autoDataSetChanged) {
             notifyDataSetChanged();
@@ -141,15 +137,20 @@ public class MultiAdapter extends BaseAdapter implements BasicSmartAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BindableLayout viewGroup = (BindableLayout) convertView;
-        if (viewGroup == null) {
-            viewGroup = builder.build(parent, getItemViewType(position), getItem(position), mapper);
+        View view = convertView;
+        if (view == null) {
+            view = builder.build(parent, getItemViewType(position), getItem(position), mapper);
         }
 
-        if (viewGroup != null) {
-            viewGroup.setViewEventListener(viewEventListener);
-            viewGroup.bind(getItem(position), position);
+        if (view != null) {
+            BindableLayout bindableLayout = (BindableLayout) view;
+            bindableLayout.setViewEventListener(viewEventListener);
+            bindableLayout.bind(getItem(position), position);
         }
-        return viewGroup;
+        return view;
+    }
+
+    private static BindableLayoutBuilder createDefaultBuilder() {
+        return new DefaultBindableLayoutBuilder();
     }
 }

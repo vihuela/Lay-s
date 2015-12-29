@@ -1,7 +1,7 @@
 package com.hadlink.lay_s.ui.datamanager.net.baseResponse;
 
 
-import com.hadlink.library.net.impl.CommonResponse;
+import com.hadlink.easynet.impl.CommonResponse;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ import java.util.Set;
  * Helper class wrapping a @{code Map} for assigning object classes to their adequate view classes.
  * It is optimized with the assumption that all the adds are going to be made before using the
  * rest of the methods. It can be used afterwards but it will be slower if there are a ton of views.
- * <p>
+ * <p/>
  * It is valid to have one object class mapped to various view classes, but it is not possible for
  * now to have one view class to be mapped to various object classes.
  */
@@ -32,19 +32,16 @@ public class Mapper {
         viewTypes = new ArrayMap<>();
     }
 
-    @VisibleForTesting Mapper(Map<Class, List<Class<? extends BindableLayout>>> mockMapping, Map<Integer, Class<? extends BindableLayout>> mockViewTypes) {
+    /**
+     * Please do not use this outside of testing.
+     *
+     * @param mockMapping
+     * @param mockViewTypes
+     */
+    @VisibleForTesting
+    public Mapper(Map<Class, List<Class<? extends BindableLayout>>> mockMapping, Map<Integer, Class<? extends BindableLayout>> mockViewTypes) {
         this.mapping = mockMapping;
         this.viewTypes = mockViewTypes;
-    }
-
-    /**
-     * Returns a unique identifier for each view class
-     *
-     * @param viewClass
-     * @return
-     */
-    public static int viewTypeFromViewClass(Class<? extends BindableLayout> viewClass) {
-        return viewClass.getCanonicalName().hashCode();
     }
 
     /**
@@ -142,6 +139,16 @@ public class Mapper {
             }
         }
         return cachedViewClasses;
+    }
+
+    /**
+     * Returns a unique identifier for each view class
+     *
+     * @param viewClass
+     * @return
+     */
+    public static int viewTypeFromViewClass(Class<? extends BindableLayout> viewClass) {
+        return viewClass.getCanonicalName().hashCode();
     }
 
     /**

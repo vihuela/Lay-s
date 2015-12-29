@@ -2,8 +2,8 @@ package com.hadlink.lay_s.ui.datamanager.net.netcallback;
 
 import android.widget.Toast;
 
+import com.hadlink.easynet.util.NetUtils;
 import com.hadlink.lay_s.ui.app.App;
-import com.hadlink.library.net.NetUtils;
 
 /**
  * Created by zhouml on 2015/12/7.
