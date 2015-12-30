@@ -1,5 +1,7 @@
 package com.hadlink.lay_s.ui.delegate;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 
@@ -22,9 +24,12 @@ import java.util.List;
 public class CommonRVDelegate extends AppDelegate {
 
     public static final int LOAD_MORE_START_PAGE = 2;
+    public final static int REFRESH = 0;
+    public final static int LOADMORE = 1;
     public LoadingCallBack loadingCallBack;
     RecyclerMultiAdapter adapter;
     XRecyclerView rv;
+    private Handler handler = new Handler(Looper.myLooper());
     private int currentLoadNum = LOAD_MORE_START_PAGE;//加载更多默认页是从第二页开始
 
     @Override public int getRootLayoutId() {
@@ -69,15 +74,23 @@ public class CommonRVDelegate extends AppDelegate {
 
     public void setDatas(List datas) {
         adapter.setItems(datas);
-        rv.refreshComplete();
+        handler.postDelayed(new Runnable() {
+            @Override public void run() {
+                if (rv != null) rv.refreshComplete();
+            }
+        }, 1000);
         currentLoadNum = LOAD_MORE_START_PAGE;//重置加载更多页
+
     }
 
     public void addDatas(List datas) {
         adapter.addItems(datas);
-        rv.loadMoreComplete();
         ++currentLoadNum;
-        com.orhanobut.logger.Logger.d("currentLoadNum:" + currentLoadNum);
+        handler.postDelayed(new Runnable() {
+            @Override public void run() {
+                if (rv != null) rv.loadMoreComplete();
+            }
+        }, 1000);
     }
 
     public void error() {

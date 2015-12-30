@@ -5,21 +5,19 @@ import android.widget.Toast;
 import com.hadlink.easynet.util.NetUtils;
 import com.hadlink.lay_s.ui.app.App;
 
-/**
- * Created by zhouml on 2015/12/7.
- */
 public abstract class MyNetCallBack<T> extends NetUtils.callBack<T> {
 
     @Override public void onDispatchError(Error error, Object message) {
-        switch (error){
+        switch (error) {
             case Internal:
                 Toast(message.toString());
                 break;
             case Invalid:
-                T result = (T) message;
                 /**
                  * 当数据无效时候你做的处理
                  */
+                T result = (T) message;
+
                 break;
             case NetWork:
                 Toast(message.toString());
@@ -32,7 +30,8 @@ public abstract class MyNetCallBack<T> extends NetUtils.callBack<T> {
                 break;
         }
     }
-    public void Toast(String msg){
-        Toast.makeText(App.getInstance(),msg,Toast.LENGTH_LONG).show();
+
+    public void Toast(String msg) {
+        Toast.makeText(App.getInstance(), msg, Toast.LENGTH_LONG).show();
     }
 }

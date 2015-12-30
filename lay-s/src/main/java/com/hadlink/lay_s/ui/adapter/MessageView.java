@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.utils.ViewEventListener;
-import com.hadlink.library.adapter.views.BindableLayout;
+import com.hadlink.library.adapter.views.BindableFrameLayout;
 import com.hadlink.library.widget.CircleImageView;
 import com.hadlink.library.widget.badgeView.BadgeTextView;
 
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * @update
  * @description
  */
-public class MessageView extends BindableLayout<WaitingAskBean> {
+public class MessageView extends BindableFrameLayout<WaitingAskBean> {
     @Bind(R.id.totalCountDes1) TextView totalCountDes1;
     @Bind(R.id.totalCount) TextView totalCount;
     @Bind(R.id.totalCountDes2) TextView totalCountDes2;
@@ -48,16 +48,16 @@ public class MessageView extends BindableLayout<WaitingAskBean> {
     @Bind(R.id.contentLayout) LinearLayout contentLayout;
     @Bind(R.id.bottom_line) TextView bottomLine;
 
+    public MessageView(Context context) {
+        super(context);
+    }
+
     @Override public int getLayoutId() {
         return R.layout.item_wating_ask;
     }
 
     @Override public void onViewInflated() {
         ButterKnife.bind(this);
-    }
-
-    @Override public void bind(WaitingAskBean item, int position) {
-
     }
 
     @Override public void bind(WaitingAskBean item) {
@@ -81,7 +81,7 @@ public class MessageView extends BindableLayout<WaitingAskBean> {
         nickName.setText(item.nickName);
         tagLine.setVisibility(!TextUtils.isEmpty(item.brandName) ? View.VISIBLE : View.GONE);
         time.setText(item.createTime);
-        Glide.with(item)
+        Glide.with(context)
                 .load(item.avatarUrl)
                 .placeholder(R.mipmap.ic_my_head_image)
                 .error(R.mipmap.ic_my_head_image)

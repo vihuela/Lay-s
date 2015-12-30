@@ -23,7 +23,7 @@ public interface ApiOverview {
     /**
      * 等待回答列表
      */
-    @GET("question/getWaitReplyList") Call<BaseListResponse<WaitingAskBean>> getWaitReplyList(@Query("expertID") int expertID, @Query("pageNum") int pageNum, @Query("numPerPage") int numPerPage);
+    @GET("question/getWaitReplyList") Observable<BaseListResponse<WaitingAskBean>> getWaitReplyList(@Query("expertID") int expertID, @Query("pageNum") int pageNum, @Query("numPerPage") int numPerPage);
 
     /**
      * 等待回答列表
