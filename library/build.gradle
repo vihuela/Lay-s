@@ -44,7 +44,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.greenrobot:eventbus:2.4.1'
-    compile 'com.hadlink:easynet:1.0.4'
+    compile 'com.hadlink:easynet:1.0.5'
     //view
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
 
