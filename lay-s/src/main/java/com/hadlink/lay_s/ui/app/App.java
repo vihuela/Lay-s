@@ -27,7 +27,6 @@ public class App extends CommonApplication {
         header.put("User-Agent", "android");
         final NetConfig netConfig = new NetConfigBuilder()
                 .context(this)
-                .responseCacheDir("you_cache_dir_name")
                 .log(true)
                 .logTag("you_tag_name")
                 .printResponseBody(false)
