@@ -1,9 +1,9 @@
-package com.hadlink.lay_s.ui.datamanager.net.netcallback;
+package com.hadlink.lay_s.datamanager.net.netcallback;
 
 import android.widget.Toast;
 
 import com.hadlink.easynet.util.NetUtils;
-import com.hadlink.lay_s.ui.app.App;
+import com.hadlink.lay_s.app.App;
 
 public abstract class MyNetCallBack<T> extends NetUtils.callBack<T> {
 

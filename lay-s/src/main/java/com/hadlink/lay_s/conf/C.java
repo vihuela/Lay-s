@@ -1,4 +1,4 @@
-package com.hadlink.lay_s.ui.conf;
+package com.hadlink.lay_s.conf;
 
 /**
  * @author Created by lyao on 2015/11/29.
@@ -12,16 +12,9 @@ public final class C {
      */
     public static final class Host {
         public static final String host = "http://eptapi.imchehu.com/";
+        public static final String BAIDU_IMAGES_URLS = "http://image.baidu.com/data/imgs";
     }
 
-    /**
-     * 请求
-     */
-    public static final class Request{
-
-        public static final String getWaitReplyList = "getWaitReplyList";
-
-    }
     /**
      * 列表常量
      */
@@ -29,4 +22,5 @@ public final class C {
         //每页加载数
         public static final int numPerPage = 10;
     }
+
 }

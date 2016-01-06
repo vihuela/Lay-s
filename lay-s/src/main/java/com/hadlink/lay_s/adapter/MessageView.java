@@ -1,8 +1,10 @@
-package com.hadlink.lay_s.ui.adapter;
+/*
+package com.hadlink.lay_s.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hadlink.lay_s.R;
-import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
 import com.hadlink.library.adapter.utils.ViewEventListener;
 import com.hadlink.library.adapter.views.BindableFrameLayout;
 import com.hadlink.library.widget.CircleImageView;
@@ -20,11 +21,13 @@ import com.hadlink.library.widget.badgeView.BadgeTextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+*/
 /**
  * @author Created by lyao on 2015/11/29.
  * @update
  * @description
- */
+ *//*
+
 public class MessageView extends BindableFrameLayout<WaitingAskBean> {
     @Bind(R.id.totalCountDes1) TextView totalCountDes1;
     @Bind(R.id.totalCount) TextView totalCount;
@@ -47,6 +50,7 @@ public class MessageView extends BindableFrameLayout<WaitingAskBean> {
     @Bind(R.id.commonCount) TextView commonCount;
     @Bind(R.id.contentLayout) LinearLayout contentLayout;
     @Bind(R.id.bottom_line) TextView bottomLine;
+    @Bind(R.id.rootView) FrameLayout rootView;
 
     public MessageView(Context context) {
         super(context);
@@ -60,10 +64,27 @@ public class MessageView extends BindableFrameLayout<WaitingAskBean> {
         ButterKnife.bind(this);
     }
 
+    @Override public void bind(WaitingAskBean item, int position) {
+        super.bind(item, position);
+        if(position == 0){
+            rootView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override public boolean onPreDraw() {
+                    rootView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    int height = rootView.getHeight();
+                    System.out.println();
+                    return false;
+                }
+            });
+        }
+
+    }
+
     @Override public void bind(WaitingAskBean item) {
-        /**
+        */
+/**
          * view
-         */
+         *//*
+
 //        totalLayout.setVisibility(message.isFirst ? View.VISIBLE : View.GONE);
         moneyLayout.setVisibility(item.awardScore != 0 ? View.VISIBLE : View.GONE);
 //        totalCount.setText(message.dataTotal + "");
@@ -88,9 +109,11 @@ public class MessageView extends BindableFrameLayout<WaitingAskBean> {
                 .crossFade()
                 .into(head);
         gender.setImageResource(item.gender == 1 ? R.mipmap.male : item.gender == 2 ? R.mipmap.femal : 0);
-        /**
+        */
+/**
          * click
-         */
+         *//*
+
         rightNowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 notifyItemAction(R.id.rightNowAnswer, item, v);
@@ -111,3 +134,4 @@ public class MessageView extends BindableFrameLayout<WaitingAskBean> {
 
     }
 }
+*/

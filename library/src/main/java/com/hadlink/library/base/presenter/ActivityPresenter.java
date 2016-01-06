@@ -37,6 +37,20 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
         bindEvenListener();
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (viewDelegate != null) {
+            try {
+                viewDelegate = getDelegateClass().newInstance();
+            } catch (InstantiationException e) {
+                throw new RuntimeException("create IDelegate error");
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("create IDelegate error");
+            }
+        }
+    }
+
     @Override protected void onResume() {
         super.onResume();
     }

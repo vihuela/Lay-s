@@ -1,6 +1,6 @@
 package com.hadlink.library.base.view;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -16,20 +16,14 @@ import android.widget.Toast;
 public abstract class AppDelegate implements IDelegate {
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
-    protected View mRootView;
-    protected Context mContext;
+    protected View rootView;
 
     public abstract int getRootLayoutId();
 
     @Override
     public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int rootLayoutId = getRootLayoutId();
-        mRootView = inflater.inflate(rootLayoutId, container, false);
-        mContext = mRootView.getContext();
-    }
-
-    @Override public void destroy() {
-
+        rootView = inflater.inflate(rootLayoutId, container, false);
     }
 
     @Override
@@ -43,7 +37,11 @@ public abstract class AppDelegate implements IDelegate {
 
     @Override
     public View getRootView() {
-        return mRootView;
+        return rootView;
+    }
+
+    public void setRootView(View rootView) {
+        this.rootView = rootView;
     }
 
     @Override
@@ -53,7 +51,7 @@ public abstract class AppDelegate implements IDelegate {
     public <T extends View> T bindView(int id) {
         T view = (T) mViews.get(id);
         if (view == null) {
-            view = (T) mRootView.findViewById(id);
+            view = (T) rootView.findViewById(id);
             mViews.put(id, view);
         }
         return view;
@@ -73,7 +71,14 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     public void toast(CharSequence msg) {
-        Toast.makeText(mContext, msg, msg.toString().trim().length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(rootView.getContext(), msg, msg.length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+    }
+
+    public <T extends Activity> T getActivity() {
+        return (T) rootView.getContext();
+    }
+
+    @Override public void destroy() {
+
     }
 }

@@ -1,8 +1,10 @@
 apply plugin: 'com.android.library'
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+
 
     defaultConfig {
         minSdkVersion 14
@@ -39,13 +41,34 @@ dependencies {
     //basic
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.github.orhanobut:hawk:1.20'
+    //log
     compile 'com.github.orhanobut:logger:1.12'
+    //bus
+    compile 'de.greenrobot:eventbus:2.4.1'
+    //net
+    compile 'com.hadlink:easynet:1.0.5'
+    //rx
+    compile 'com.trello:rxlifecycle:0.4.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+    //db
+    compile 'com.github.orhanobut:hawk:1.21'
+    compile 'io.realm:realm-android:0.87.1'
+    //image
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'de.greenrobot:eventbus:2.4.1'
-    compile 'com.hadlink:easynet:1.0.5'
+    compile 'com.liulishuo.qiniuimageloader:library:1.0.0'
+    compile 'com.liulishuo.qiniuimageloader:utils-picasso:1.0.0'
     //view
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
-
+    compile 'com.github.bluejamesbond:textjustify-android:2.1.1'
+    //icon
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-entypo:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-typicons:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-material:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-material-community:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-meteocons:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-weathericons:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-simplelineicons:2.1.1'
+    compile 'com.joanzapata.iconify:android-iconify-ionicons:2.1.1'
 }

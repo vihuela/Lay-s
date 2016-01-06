@@ -1,4 +1,4 @@
-package com.hadlink.lay_s.ui.datamanager.net.baseResponse;
+package com.hadlink.lay_s.datamanager.net.baseResponse;
 
 
 import com.hadlink.easynet.impl.CommonResponse;

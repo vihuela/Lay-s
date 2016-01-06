@@ -1,4 +1,4 @@
-package com.hadlink.lay_s.ui.delegate;
+package com.hadlink.lay_s.delegate;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,9 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 
 import com.hadlink.lay_s.R;
-import com.hadlink.lay_s.ui.adapter.MessageView;
-import com.hadlink.lay_s.ui.datamanager.bean.WaitingAskBean;
-import com.hadlink.library.adapter.SmartAdapter;
 import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
 import com.hadlink.library.base.view.AppDelegate;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -43,13 +40,13 @@ public class CommonRVDelegate extends AppDelegate {
     @Override public Toolbar getToolbar() {
         Toolbar toolbar = get(R.id.toolbar);
         toolbar.setTitle("Lay's");
-        toolbar.setTitleTextAppearance(mContext, R.style.MenuTextStyle);
+        toolbar.setTitleTextAppearance(getActivity(), R.style.MenuTextStyle);
         return toolbar;
     }
 
     @Override public void initWidget() {
         rv = get(R.id.rv);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.setArrowImageView(R.mipmap.iconfont_downgrey);
         rv.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -64,10 +61,10 @@ public class CommonRVDelegate extends AppDelegate {
             }
         });
 
-        adapter = SmartAdapter
+        /*adapter = SmartAdapter
                 .empty()
                 .map(WaitingAskBean.class, MessageView.class)
-                .into(rv);
+                .into(rv);*/
 
 
     }
@@ -76,7 +73,7 @@ public class CommonRVDelegate extends AppDelegate {
         adapter.setItems(datas);
         handler.postDelayed(new Runnable() {
             @Override public void run() {
-                if (rv != null) rv.refreshComplete();
+                rv.refreshComplete();
             }
         }, 1000);
         currentLoadNum = LOAD_MORE_START_PAGE;//重置加载更多页
@@ -86,11 +83,7 @@ public class CommonRVDelegate extends AppDelegate {
     public void addDatas(List datas) {
         adapter.addItems(datas);
         ++currentLoadNum;
-        handler.postDelayed(new Runnable() {
-            @Override public void run() {
-                if (rv != null) rv.loadMoreComplete();
-            }
-        }, 1000);
+        rv.loadMoreComplete();
     }
 
     public void error() {

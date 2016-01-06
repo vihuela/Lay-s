@@ -1,4 +1,4 @@
-package com.hadlink.lay_s.ui.app;
+package com.hadlink.lay_s.app;
 
 import android.support.v4.util.ArrayMap;
 
@@ -20,19 +20,21 @@ public class App extends CommonApplication {
     }
 
 
-
     @Override public void onCreate() {
         super.onCreate();
-        ArrayMap<String, String> header = new ArrayMap<>();
-        header.put("User-Agent", "android");
-        final NetConfig netConfig = new NetConfigBuilder()
-                .context(this)
-                .log(true)
-                .logTag("you_tag_name")
-                .printResponseBody(false)
-                .header(header)
-                .createNetConfig();
+        if (defaultProcess) {
+            ArrayMap<String, String> header = new ArrayMap<>();
+            header.put("User-Agent", "android");
+            final NetConfig netConfig = new NetConfigBuilder()
+                    .context(this)
+                    .log(true)
+                    .logTag("lays")
+                    .printResponseBody(false)
+                    .header(header)
+                    .createNetConfig();
 
-        NetUtils.setNetConfig(netConfig);
+            NetUtils.setNetConfig(netConfig);
+        }
+
     }
 }
