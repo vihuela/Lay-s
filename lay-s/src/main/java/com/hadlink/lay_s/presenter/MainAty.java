@@ -1,11 +1,9 @@
 package com.hadlink.lay_s.presenter;
 
 import com.hadlink.easynet.util.NetUtils;
-import com.hadlink.lay_s.datamanager.bean.FreshEvent;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
 import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
-import com.hadlink.lay_s.datamanager.net.response.FreshEventResponse;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.CommonRVDelegate;
 import com.hadlink.library.base.presenter.ActivityPresenter;
@@ -34,13 +32,13 @@ public class MainAty extends ActivityPresenter<CommonRVDelegate> implements Comm
                         List<ImageDetail> result = imageDetailImageListResponse.getResult();
                     }
                 });
-        Observable<FreshEventResponse<FreshEvent>> freshList = MyNet.get().getFreshList(1);
+        /*Observable<FreshEventResponse<FreshEvent>> freshList = MyNet.get().getFreshList(1);
         NetUtils.getMainThreadObservable(freshList)
                 .subscribe(new MyNetCallBack<FreshEventResponse<FreshEvent>>() {
                     @Override public void onSuccess(FreshEventResponse<FreshEvent> freshEventFreshEventResponse) {
                         List<FreshEvent> result = freshEventFreshEventResponse.getResult();
                     }
-                });
+                });*/
 
     }
 

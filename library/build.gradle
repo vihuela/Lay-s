@@ -46,7 +46,7 @@ dependencies {
     //bus
     compile 'de.greenrobot:eventbus:2.4.1'
     //net
-    compile 'com.hadlink:easynet:1.0.5'
+    compile 'com.hadlink:easynet:1.0.6'
     //rx
     compile 'com.trello:rxlifecycle:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
