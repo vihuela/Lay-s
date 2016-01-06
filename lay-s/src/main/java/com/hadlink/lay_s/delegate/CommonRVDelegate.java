@@ -3,7 +3,6 @@ package com.hadlink.lay_s.delegate;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
@@ -35,13 +34,6 @@ public class CommonRVDelegate extends AppDelegate {
 
     @Override public int getOptionsMenuId() {
         return R.menu.menu_main;
-    }
-
-    @Override public Toolbar getToolbar() {
-        Toolbar toolbar = get(R.id.toolbar);
-        toolbar.setTitle("Lay's");
-        toolbar.setTitleTextAppearance(getActivity(), R.style.MenuTextStyle);
-        return toolbar;
     }
 
     @Override public void initWidget() {

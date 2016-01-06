@@ -1,4 +1,4 @@
-package com.hadlink.library.util.recyclerViewUtils;
+package com.hadlink.library.util.recyclerView;
 
 /**
  * @author Created by lyao on 2016/1/2.

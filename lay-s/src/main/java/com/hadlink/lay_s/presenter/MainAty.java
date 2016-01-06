@@ -6,13 +6,13 @@ import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.CommonRVDelegate;
-import com.hadlink.library.base.presenter.ActivityPresenter;
+import com.hadlink.library.base.BaseActivity;
 
 import java.util.List;
 
 import rx.Observable;
 
-public class MainAty extends ActivityPresenter<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
+public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
 
     @Override protected Class<CommonRVDelegate> getDelegateClass() {

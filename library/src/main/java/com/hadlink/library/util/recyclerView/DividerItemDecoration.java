@@ -1,4 +1,4 @@
-package com.hadlink.library.util.recyclerViewUtils;
+package com.hadlink.library.util.recyclerView;
 
 import android.content.Context;
 import android.content.res.TypedArray;

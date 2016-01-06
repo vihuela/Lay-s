@@ -1,4 +1,4 @@
-package com.hadlink.library.util.recyclerViewUtils;
+package com.hadlink.library.util.widget;
 
 import android.content.Context;
 import android.support.v4.widget.NestedScrollView;
@@ -9,22 +9,22 @@ import android.view.ViewConfiguration;
 /**
  * Created by lyao on 2015/8/14.
  */
-public class NoHandlerScrollView extends NestedScrollView {
+public class HackScrollView extends NestedScrollView {
     private int downX;
     private int downY;
     private int mTouchSlop;
 
-    public NoHandlerScrollView(Context context) {
+    public HackScrollView(Context context) {
         super(context);
         init(context);
     }
 
-    public NoHandlerScrollView(Context context, AttributeSet attrs) {
+    public HackScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public NoHandlerScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HackScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
