@@ -3,7 +3,6 @@ package com.hadlink.lay_s.presenter;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.hadlink.easynet.util.NetUtils;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
 import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
@@ -16,10 +15,21 @@ import com.hadlink.library.util.rx.RxBus;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
+
+    public static <T> Observable.Transformer<T, T> applySchedulers() {
+        return new Observable.Transformer<T, T>() {
+            @Override public Observable<T> call(Observable<T> observable) {
+                return observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
 
     @Override protected Class<CommonRVDelegate> getDelegateClass() {
         return CommonRVDelegate.class;
@@ -43,12 +53,16 @@ public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVD
 
     private void requestList(boolean refresh) {
         Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList("美女", 1);
-        NetUtils.getMainThreadObservable(imageList)
+        imageList
+                .compose(this.bindToLifecycle())
+                .compose(applySchedulers())
                 .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>() {
                     @Override public void onSuccess(ImageListResponse<ImageDetail> imageDetailImageListResponse) {
                         List<ImageDetail> result = imageDetailImageListResponse.getResult();
+                        Toast.makeText(mContext, "ok", Toast.LENGTH_SHORT).show();
                     }
                 });
+
         /*Observable<FreshEventResponse<FreshEvent>> freshList = MyNet.get().getFreshList(1);
         NetUtils.getMainThreadObservable(freshList)
                 .subscribe(new MyNetCallBack<FreshEventResponse<FreshEvent>>() {

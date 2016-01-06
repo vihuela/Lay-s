@@ -2,11 +2,11 @@ package com.hadlink.library.base.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.hadlink.library.base.view.IDelegate;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 
 /**
@@ -15,7 +15,7 @@ import com.hadlink.library.base.view.IDelegate;
  *
  * @param <T> View delegate class type
  */
-public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
+public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompatActivity {
     protected T viewDelegate;
     protected Context mContext;
 

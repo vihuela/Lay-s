@@ -2,7 +2,6 @@ package com.hadlink.library.base.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hadlink.library.base.view.IDelegate;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 
 /**
@@ -18,7 +18,7 @@ import com.hadlink.library.base.view.IDelegate;
  *
  * @param <T> View delegate class type
  */
-public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
+public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment {
     public T viewDelegate;
 
     @Override

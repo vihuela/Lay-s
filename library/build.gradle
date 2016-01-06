@@ -43,12 +43,11 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     //log
     compile 'com.github.orhanobut:logger:1.12'
-    //bus
-    compile 'de.greenrobot:eventbus:2.4.1'
     //net
     compile 'com.hadlink:easynet:1.0.6'
     //rx
     compile 'com.trello:rxlifecycle:0.4.0'
+    compile 'com.trello:rxlifecycle-components:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     //db
     compile 'com.github.orhanobut:hawk:1.21'
