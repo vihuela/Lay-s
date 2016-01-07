@@ -44,7 +44,7 @@ dependencies {
     //log
     compile 'com.github.orhanobut:logger:1.12'
     //net
-    compile 'com.hadlink:easynet:1.0.6'
+    compile 'com.hadlink:easynet:1.1.0'
     //rx
     compile 'com.trello:rxlifecycle:0.4.0'
     compile 'com.trello:rxlifecycle-components:0.4.0'
