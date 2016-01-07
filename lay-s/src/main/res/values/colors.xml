@@ -8,4 +8,5 @@
     <color name="text_45">#FF454545</color>
     <color name="text_time">#FFC7C7CD</color>
     <color name="commonStoke">#E5E5E7</color>
+    <color name="white">#fff</color>
 </resources>

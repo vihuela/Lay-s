@@ -1,9 +1,11 @@
 package com.hadlink.lay_s.presenter;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.hadlink.easynet.util.NetUtils;
+import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
 import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
@@ -12,6 +14,9 @@ import com.hadlink.lay_s.delegate.CommonRVDelegate;
 import com.hadlink.lay_s.model.Event;
 import com.hadlink.library.base.BaseActivity;
 import com.hadlink.library.util.rx.RxBus;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.joanzapata.iconify.fonts.MaterialIcons;
+import com.joanzapata.iconify.fonts.SimpleLineIconsIcons;
 
 import java.util.List;
 
@@ -59,8 +64,14 @@ public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVD
         requestList(false);
     }
 
+    @Override protected void onUseIconifySetMenuItem(Menu menu) {
+        setMenuItem(MaterialIcons.md_face, R.color.white, menu.findItem(R.id.xiao));
+        setMenuItem(FontAwesomeIcons.fa_share, R.color.white, menu.findItem(R.id.ming));
+        setMenuItem(SimpleLineIconsIcons.icon_arrow_right, R.color.white, menu.findItem(R.id.ge));
+    }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
+
         Event event = new Event();
         event.setAction(item.getTitle().toString());
         RxBus.getDefault().post(event);

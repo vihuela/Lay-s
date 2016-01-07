@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.hadlink.library.base.view.IDelegate;
+import com.joanzapata.iconify.Icon;
+import com.joanzapata.iconify.IconDrawable;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 
@@ -76,6 +79,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
     public boolean onCreateOptionsMenu(Menu menu) {
         if (viewDelegate.getOptionsMenuId() != 0) {
             getMenuInflater().inflate(viewDelegate.getOptionsMenuId(), menu);
+            onUseIconifySetMenuItem(menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -85,6 +89,19 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
         super.onDestroy();
         viewDelegate.destroy();
         viewDelegate = null;
+    }
+
+    /**
+     * only Iconify use
+     */
+    protected void onUseIconifySetMenuItem(Menu menu) {
+    }
+
+    protected final void setMenuItem(Icon icon, int color, MenuItem menuItem) {
+        menuItem.setIcon(
+                new IconDrawable(this, icon)
+                        .colorRes(color)
+                        .actionBarSize());
     }
 
     protected abstract Class<T> getDelegateClass();

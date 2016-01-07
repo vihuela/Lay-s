@@ -4,17 +4,20 @@
       tools:context=".presenter.MainAty">
     <item
         android:id="@+id/xiao"
+        android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="menu1"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/ming"
+        android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="menu2"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/ge"
+        android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="menu3"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 </menu>
