@@ -1,17 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".presenter.MainAty">
+      tools:context=".presenter.Temp">
     <item
         android:id="@+id/git"
         android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
-        android:title="menu1"
-        app:showAsAction="always"/>
+        android:title="gitHub"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/about"
         android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
-        android:title="menu2"
+        android:title="@string/setting_about"
         app:showAsAction="never"/>
 </menu>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
-    tools:context=".presenter.MainAty">
+    tools:context=".presenter.Temp">
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv"

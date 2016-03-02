@@ -18,7 +18,7 @@ import java.util.List;
 
 import rx.Observable;
 
-public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
+public class Temp extends BaseActivity<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
 
     @Override protected Class<CommonRVDelegate> getDelegateClass() {

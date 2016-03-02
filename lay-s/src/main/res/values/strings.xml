@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Lay-s</string>
     <string name="substitute">substitute</string>
+    <string name="setting_about">about</string>
 </resources>

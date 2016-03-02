@@ -11,7 +11,7 @@ import com.joanzapata.iconify.fonts.MaterialIcons;
  * @author Created by lyao on 2016/3/2.
  * @description
  */
-public class MainPresenter extends BaseActivity<MainDelegate> {
+public class MainAtyPresenter extends BaseActivity<MainDelegate> {
 
 
     @Override protected Class<MainDelegate> getDelegateClass() {
