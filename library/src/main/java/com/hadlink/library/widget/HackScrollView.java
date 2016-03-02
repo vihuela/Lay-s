@@ -1,4 +1,4 @@
-package com.hadlink.library.util.widget;
+package com.hadlink.library.widget;
 
 import android.content.Context;
 import android.support.v4.widget.NestedScrollView;

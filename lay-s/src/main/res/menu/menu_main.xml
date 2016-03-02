@@ -3,21 +3,15 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".presenter.MainAty">
     <item
-        android:id="@+id/xiao"
+        android:id="@+id/git"
         android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="menu1"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/ming"
+        android:id="@+id/about"
         android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="menu2"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/ge"
-        android:icon="@drawable/ic_loading_rotate"
-        android:orderInCategory="100"
-        android:title="menu3"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 </menu>

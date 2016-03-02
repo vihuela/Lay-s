@@ -5,7 +5,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.hadlink.easynet.util.NetUtils;
-import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
 import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
@@ -14,9 +13,6 @@ import com.hadlink.lay_s.delegate.CommonRVDelegate;
 import com.hadlink.lay_s.model.Event;
 import com.hadlink.library.base.BaseActivity;
 import com.hadlink.library.util.rx.RxBus;
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
-import com.joanzapata.iconify.fonts.MaterialIcons;
-import com.joanzapata.iconify.fonts.SimpleLineIconsIcons;
 
 import java.util.List;
 
@@ -32,13 +28,13 @@ public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVD
     @Override protected void bindEvenListener() {
         viewDelegate.setCallBack(this);
         requestList(true);
-        initRxbus();
+        initRxBus();
     }
 
-    private void initRxbus() {
+    private void initRxBus() {
         RxBus.getDefault().take(Event.class)
                 .subscribe(event -> {
-                    Toast.makeText(mContext, event.getAction(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, event.getAction(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -50,7 +46,11 @@ public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVD
                 .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>() {
                     @Override public void onSuccess(ImageListResponse<ImageDetail> imageDetailImageListResponse) {
                         List<ImageDetail> result = imageDetailImageListResponse.getResult();
-                        Toast.makeText(mContext, "ok", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override public void onDispatchError(Error error, Object message) {
+                        super.onDispatchError(error, message);
                     }
                 });
 
@@ -65,9 +65,9 @@ public class MainAty extends BaseActivity<CommonRVDelegate> implements CommonRVD
     }
 
     @Override protected void onUseIconifySetMenuItem(Menu menu) {
-        setMenuItem(MaterialIcons.md_face, R.color.white, menu.findItem(R.id.xiao));
+       /* setMenuItem(MaterialIcons.md_face, R.color.white, menu.findItem(R.id.xiao));
         setMenuItem(FontAwesomeIcons.fa_share, R.color.white, menu.findItem(R.id.ming));
-        setMenuItem(SimpleLineIconsIcons.icon_arrow_right, R.color.white, menu.findItem(R.id.ge));
+        setMenuItem(SimpleLineIconsIcons.icon_arrow_right, R.color.white, menu.findItem(R.id.ge));*/
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {

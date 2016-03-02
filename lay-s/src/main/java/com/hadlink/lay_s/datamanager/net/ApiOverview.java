@@ -8,8 +8,8 @@ import com.hadlink.lay_s.datamanager.net.response.FreshEventResponse;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.utils.UriHelper;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -18,6 +18,8 @@ import rx.Observable;
  * @description
  */
 public interface ApiOverview {
+
+
 
     /**
      * 新鲜事列表

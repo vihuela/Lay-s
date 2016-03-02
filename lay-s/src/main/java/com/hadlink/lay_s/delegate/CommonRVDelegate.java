@@ -5,7 +5,6 @@ import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.hadlink.lay_s.R;
-import com.hadlink.library.adapter.adapters.RecyclerMultiAdapter;
 import com.hadlink.library.base.view.AppDelegate;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -23,7 +22,7 @@ public class CommonRVDelegate extends AppDelegate {
     public final static int REFRESH = 0;
     public final static int LOADMORE = 1;
     public LoadingCallBack loadingCallBack;
-    RecyclerMultiAdapter adapter;
+    /*RecyclerMultiAdapter adapter;*/
     XRecyclerView rv;
     private Handler handler = new Handler(Looper.myLooper());
     private int currentLoadNum = LOAD_MORE_START_PAGE;//加载更多默认页是从第二页开始
@@ -53,16 +52,10 @@ public class CommonRVDelegate extends AppDelegate {
             }
         });
 
-        /*adapter = SmartAdapter
-                .empty()
-                .map(WaitingAskBean.class, MessageView.class)
-                .into(rv);*/
-
-
     }
 
     public void setDatas(List datas) {
-        adapter.setItems(datas);
+        /*adapter.setItems(datas);*/
         handler.postDelayed(new Runnable() {
             @Override public void run() {
                 rv.refreshComplete();
@@ -73,7 +66,7 @@ public class CommonRVDelegate extends AppDelegate {
     }
 
     public void addDatas(List datas) {
-        adapter.addItems(datas);
+        /*adapter.addItems(datas);*/
         ++currentLoadNum;
         rv.loadMoreComplete();
     }

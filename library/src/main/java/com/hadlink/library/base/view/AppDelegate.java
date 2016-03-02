@@ -3,6 +3,7 @@ package com.hadlink.library.base.view;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,8 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     public void toast(CharSequence msg) {
-        Toast.makeText(rootView.getContext(), msg, msg.length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+        if (!TextUtils.isEmpty(msg))
+            Toast.makeText(rootView.getContext(), msg, msg.length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
     }
 
     public <T extends Activity> T getActivity() {

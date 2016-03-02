@@ -1,17 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" tools:ignore="ResourceName">
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar" tools:ignore="ResourceName">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/LightToolbar</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
+    <style name="AppTheme" parent="BaseAppTheme"/>
 
     <style name="Divider" parent="@style/MatchWrap">
         <item name="android:layout_height">1px</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">#FFe5e5e5</item>
+    </style>
+
+    <style name="LightToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:theme">@style/LightToolbarThemeOverlay</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/BaseToolbarTitleTextAppearance</item>
+        <item name="titleTextColor">@color/text_dark</item>
+    </style>
+
+    <style name="LightToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/text_dark</item>
+    </style>
+
+    <style name="BaseToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

@@ -36,17 +36,17 @@ public abstract class CommonApplication extends Application {
     protected boolean appDebug = true;
     protected String appLogTag = "chehu";
 
+    /**
+     * open method
+     */
+
     public static CommonApplication getInstance() {
         return sInstance;
     }
 
-    public boolean getAppDebug() {
-        return appDebug;
-    }
+    protected abstract boolean isDebugLog();
 
-    public String getAppLogTag() {
-        return appLogTag;
-    }
+    protected abstract String getLogTag();
 
     @Override
     public void onCreate() {
@@ -57,11 +57,18 @@ public abstract class CommonApplication extends Application {
          * default process
          */
         if (defaultProcess) {
-            appDebug = getLog();
+            appDebug = isDebugLog();
+            appLogTag = getLogTag();
             initStorage();
             initLogger();
             initIcon();
         }
+    }
+
+    private void init() {
+        sInstance = this;
+        processName = SystemTool.getProcessName(this, android.os.Process.myPid());
+        defaultProcess = !TextUtils.isEmpty(processName) && processName.equals(this.getPackageName());
     }
 
     private void initIcon() {
@@ -77,13 +84,6 @@ public abstract class CommonApplication extends Application {
                 .with(new IoniconsModule());
     }
 
-    protected abstract boolean getLog();
-
-    private void init() {
-        sInstance = this;
-        processName = SystemTool.getProcessName(this, android.os.Process.myPid());
-        defaultProcess = !TextUtils.isEmpty(processName) && processName.equals(this.getPackageName());
-    }
 
     private void initStorage() {
         Hawk
@@ -103,10 +103,14 @@ public abstract class CommonApplication extends Application {
                 .logLevel(appDebug ? com.orhanobut.logger.LogLevel.FULL : com.orhanobut.logger.LogLevel.NONE);
     }
 
+    public boolean getAppDebug() {
+        return appDebug;
+    }
 
-    /**
-     * open method
-     */
+    public String getAppLogTag() {
+        return appLogTag;
+    }
+
     public void exitApp() {
         BaseAppManager.getInstance().clear();
         System.gc();

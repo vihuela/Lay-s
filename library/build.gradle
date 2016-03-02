@@ -32,11 +32,11 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //google
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.android.support:support-v4:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:support-annotations:23.2.0'
     compile 'com.google.code.gson:gson:2.5'
     //basic
     compile 'com.nineoldandroids:library:2.4.0'
@@ -44,22 +44,25 @@ dependencies {
     //log
     compile 'com.github.orhanobut:logger:1.12'
     //net
-    compile 'com.hadlink:easynet:1.1.0'
+    compile 'com.hadlink:easynet:1.2.1_SNAPSHOT'
+    //adapter
+    compile 'com.hadlink:rvhelpperlib:1.0.2'
     //rx
-    compile 'com.trello:rxlifecycle:0.4.0'
-    compile 'com.trello:rxlifecycle-components:0.4.0'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+    compile 'com.trello:rxlifecycle:0.5.0'
+    compile 'com.trello:rxlifecycle-components:0.5.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     //db
     compile 'com.github.orhanobut:hawk:1.21'
-    compile 'io.realm:realm-android:0.87.1'
+    compile 'io.realm:realm-android:0.87.5'
     //image
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.liulishuo.qiniuimageloader:library:1.0.0'
-    compile 'com.liulishuo.qiniuimageloader:utils-picasso:1.0.0'
+    compile 'com.liulishuo.qiniuimageloader:library:1.0.1'
+    compile 'com.liulishuo.qiniuimageloader:utils-picasso:1.0.1'
     //view
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.1'
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
     //icon
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-entypo:2.1.1'
@@ -70,4 +73,6 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-weathericons:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-simplelineicons:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.1.1'
+
+
 }

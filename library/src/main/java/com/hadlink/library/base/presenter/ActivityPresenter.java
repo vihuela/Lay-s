@@ -20,7 +20,7 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
  */
 public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompatActivity {
     protected T viewDelegate;
-    protected Context mContext;
+    protected Context context;
 
     public ActivityPresenter() {
         try {
@@ -35,7 +35,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mContext = this;
+        context = this;
         viewDelegate.create(getLayoutInflater(), null, savedInstanceState);
         setContentView(viewDelegate.getRootView());
         initToolbar();
@@ -46,7 +46,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (viewDelegate != null) {
+        if (viewDelegate == null) {
             try {
                 viewDelegate = getDelegateClass().newInstance();
             } catch (InstantiationException e) {
@@ -55,14 +55,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
                 throw new RuntimeException("create IDelegate error");
             }
         }
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-    }
-
-    @Override protected void onPause() {
-        super.onPause();
     }
 
     protected void bindEvenListener() {

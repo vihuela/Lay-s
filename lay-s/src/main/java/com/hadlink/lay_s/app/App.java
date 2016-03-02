@@ -1,7 +1,5 @@
 package com.hadlink.lay_s.app;
 
-import android.support.v4.util.ArrayMap;
-
 import com.hadlink.easynet.conf.NetConfigBuilder;
 import com.hadlink.easynet.util.NetConfig;
 import com.hadlink.easynet.util.NetUtils;
@@ -10,27 +8,28 @@ import com.hadlink.library.application.CommonApplication;
 
 /**
  * @author Created by lyao on 2015/11/29.
- * @update
- * @description
  */
 public class App extends CommonApplication {
+    public final static String TAG = "lays";
+    public final static boolean DEBUG = BuildConfig.DEBUG;
 
-    @Override protected boolean getLog() {
-        return BuildConfig.DEBUG;
+    @Override protected boolean isDebugLog() {
+        return DEBUG;
+    }
+
+    @Override protected String getLogTag() {
+        return TAG;
     }
 
 
     @Override public void onCreate() {
         super.onCreate();
         if (defaultProcess) {
-            ArrayMap<String, String> header = new ArrayMap<>();
-            header.put("User-Agent", "android");
             final NetConfig netConfig = new NetConfigBuilder()
                     .context(this)
-                    .log(true)
-                    .logTag("lays")
-                    .printResponseBody(false)
-                    .header(header)
+                    .log(DEBUG)
+                    .logTag(TAG)
+                    .printResponseBody(DEBUG)
                     .createNetConfig();
 
             NetUtils.setNetConfig(netConfig);

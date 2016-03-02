@@ -12,11 +12,6 @@ import com.hadlink.library.R;
 import com.hadlink.library.base.presenter.ActivityPresenter;
 import com.hadlink.library.base.view.IDelegate;
 
-/**
- * Activity基类
- *
- * @author kymjs (http://www.kymjs.com/) on 11/19/15.
- */
 public abstract class BaseActivity<T extends IDelegate> extends ActivityPresenter<T> {
     protected LinearLayout rootView;
 
@@ -39,7 +34,6 @@ public abstract class BaseActivity<T extends IDelegate> extends ActivityPresente
         Toolbar toolbar = viewDelegate.getToolbar();
         if (toolbar == null) {
             toolbar = (Toolbar) View.inflate(this, R.layout.base_toolbar, null);
-            toolbar.setTitleTextAppearance(this, R.style.MenuTextStyle);
             rootView.addView(toolbar, 0);
         }
         setSupportActionBar(toolbar);

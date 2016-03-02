@@ -1,11 +1,6 @@
 package com.hadlink.library.util.rx;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
@@ -46,32 +41,5 @@ public class RxBus {
                 return eventType.isInstance(o);
             }
         }).cast(eventType);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-
-    private ConcurrentHashMap<String, Result> pool = new ConcurrentHashMap<>();
-
-    public Observable<Result> take(final String url) {
-        return Observable.create(new Observable.OnSubscribe<Result>() {
-            @Override
-            public void call(Subscriber<? super Result> subscriber) {
-                while (true) {
-                    Result result = pool.get(url);
-                    if (result != null) {
-                        subscriber.onNext(result);
-                        subscriber.onCompleted();
-                        break;
-                    }
-                }
-            }
-        }).subscribeOn(Schedulers.io());
-    }
-
-    /**
-     * 入队
-     */
-    public void put(String url, Map<String, String> header, byte[] data) {
-        pool.put(url, new Result(header, data));
     }
 }
