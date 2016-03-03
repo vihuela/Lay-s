@@ -1,5 +1,6 @@
 package com.hadlink.lay_s.presenter;
 
+import android.os.Bundle;
 import android.view.Menu;
 
 import com.hadlink.lay_s.R;
@@ -9,7 +10,6 @@ import com.joanzapata.iconify.fonts.MaterialIcons;
 
 /**
  * @author Created by lyao on 2016/3/2.
- * @description
  */
 public class MainAtyPresenter extends BaseActivity<MainDelegate> {
 
@@ -20,5 +20,10 @@ public class MainAtyPresenter extends BaseActivity<MainDelegate> {
 
     @Override protected void onUseIconifySetMenuItem(Menu menu) {
         setMenuItem(MaterialIcons.md_face, R.color.text_dark, menu.findItem(R.id.git));
+    }
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewDelegate.initView(getSupportFragmentManager());
     }
 }

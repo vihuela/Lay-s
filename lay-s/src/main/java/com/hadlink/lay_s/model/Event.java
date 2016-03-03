@@ -1,6 +1,7 @@
 package com.hadlink.lay_s.model;
 
 public class Event {
+    public final static String SEND_TAB_TITLE_ACTION = "send_tab_title";
     private String action;
     private Object object;
     public int arg;

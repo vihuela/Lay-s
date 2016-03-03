@@ -49,7 +49,7 @@ public abstract class AppDelegate implements IDelegate {
     public void initWidget() {
     }
 
-    public <T extends View> T bindView(int id) {
+    public final <T extends View> T bindView(int id) {
         T view = (T) mViews.get(id);
         if (view == null) {
             view = (T) rootView.findViewById(id);
@@ -58,11 +58,11 @@ public abstract class AppDelegate implements IDelegate {
         return view;
     }
 
-    public <T extends View> T get(int id) {
+    public final <T extends View> T get(int id) {
         return (T) bindView(id);
     }
 
-    public void setOnClickListener(View.OnClickListener listener, int... ids) {
+    public final void setOnClickListener(View.OnClickListener listener, int... ids) {
         if (ids == null) {
             return;
         }
@@ -76,7 +76,7 @@ public abstract class AppDelegate implements IDelegate {
             Toast.makeText(rootView.getContext(), msg, msg.length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
     }
 
-    public <T extends Activity> T getActivity() {
+    public final <T extends Activity> T getActivity() {
         return (T) rootView.getContext();
     }
 

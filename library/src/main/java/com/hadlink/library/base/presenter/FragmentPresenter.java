@@ -1,5 +1,7 @@
 package com.hadlink.library.base.presenter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,6 +22,18 @@ import com.trello.rxlifecycle.components.support.RxFragment;
  */
 public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment {
     public T viewDelegate;
+    public Context context;
+    public String tag;
+    private boolean isFirstResume = true;
+    private boolean isFirstVisible = true;
+    private boolean isFirstInvisible = true;
+    private boolean isPrepared;
+
+    @Override public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = activity;
+        tag = getClass().getSimpleName();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +46,27 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstResume) {
+            isFirstResume = false;
+            return;
+        }
+        if (getUserVisibleHint()) {
+            onUserVisible();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getUserVisibleHint()) {
+            onUserInvisible();
+        }
+    }
+
 
     @Nullable
     @Override
@@ -47,6 +82,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
         super.onViewCreated(view, savedInstanceState);
         viewDelegate.initWidget();
         bindEvenListener();
+        initPrepare();
     }
 
     protected void bindEvenListener() {
@@ -78,6 +114,56 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     public void onDestroy() {
         super.onDestroy();
         viewDelegate = null;
+    }
+
+    /**
+     * when fragment is visible for the first time, here we can do some initialized work or refresh data only once
+     */
+    protected abstract void onFirstUserVisible();
+
+    private synchronized void initPrepare() {
+        if (isPrepared) {
+            onFirstUserVisible();
+        } else {
+            isPrepared = true;
+        }
+    }
+
+    /**
+     * this method like the fragment's lifecycle method onResume()
+     */
+    protected abstract void onUserVisible();
+
+    /**
+     * when fragment is invisible for the first time
+     */
+    private void onFirstUserInvisible() {
+        // here we do not recommend do something
+    }
+
+    /**
+     * this method like the fragment's lifecycle method onPause()
+     */
+    protected abstract void onUserInvisible();
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                initPrepare();
+            } else {
+                onUserVisible();
+            }
+        } else {
+            if (isFirstInvisible) {
+                isFirstInvisible = false;
+                onFirstUserInvisible();
+            } else {
+                onUserInvisible();
+            }
+        }
     }
 
     protected abstract Class<T> getDelegateClass();

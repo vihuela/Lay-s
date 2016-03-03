@@ -10,4 +10,5 @@
     <color name="commonStoke">#E5E5E7</color>
     <color name="white">#fff</color>
     <color name="text_dark">#90220700</color>
+    <color name="none">#00000000</color>
 </resources>

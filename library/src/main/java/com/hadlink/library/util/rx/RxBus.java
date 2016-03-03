@@ -42,4 +42,23 @@ public class RxBus {
             }
         }).cast(eventType);
     }
+    //usage
+    /*private void setTabTitle(int position) {
+        Event event = new Event();
+        event.setAction(Event.SEND_TAB_TITLE_ACTION);
+        CharSequence pageTitle = viewpager.getAdapter().getPageTitle(position);
+        event.setObject(pageTitle);
+        RxBus.getDefault().post(event);
+    }*/
+    /*rxBusSubscript = RxBus.getDefault().take(Event.class)
+    .subscribe(new Action1<Event>() {
+        @Override
+        public void call(Event event) {
+            changeContent(event);
+        }
+    }, new Action1<Throwable>() {
+        @Override
+        public void call(Throwable throwable) {
+        }
+    });*/
 }
