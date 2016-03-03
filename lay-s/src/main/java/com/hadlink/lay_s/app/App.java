@@ -25,6 +25,7 @@ public class App extends CommonApplication {
     @Override public void onCreate() {
         super.onCreate();
         if (defaultProcess) {
+            //net
             final NetConfig netConfig = new NetConfigBuilder()
                     .context(this)
                     .log(DEBUG)
@@ -33,6 +34,7 @@ public class App extends CommonApplication {
                     .createNetConfig();
 
             NetUtils.setNetConfig(netConfig);
+            //image
         }
 
     }

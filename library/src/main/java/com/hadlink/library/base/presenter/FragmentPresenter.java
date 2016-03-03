@@ -33,6 +33,8 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
         super.onAttach(activity);
         context = activity;
         tag = getClass().getSimpleName();
+        if (getArguments() != null) onArguments(getArguments());
+
     }
 
     @Override
@@ -145,6 +147,12 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
      * this method like the fragment's lifecycle method onPause()
      */
     protected abstract void onUserInvisible();
+
+    /**
+     * get arguments
+     */
+    protected void onArguments(Bundle arguments) {
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

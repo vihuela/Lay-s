@@ -22,10 +22,10 @@ public class MainDelegate extends AppDelegate {
     Fragment[] frgs;
     String[] titles = new String[]{
             "摄影", "壁纸",
-            "明星入驻", "宠物",
+            "明星", "宠物",
             "动漫", "头像",
             "小清新", "风景",
-            "极光", "PPT模板"
+            "极光", "美女"
     };
 
 

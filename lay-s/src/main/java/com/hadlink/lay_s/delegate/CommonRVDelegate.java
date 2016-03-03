@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class CommonRVDelegate extends AppDelegate {
 
-    public static final int LOAD_MORE_START_PAGE = 2;
+    public static final int LOAD_MORE_START_PAGE = 1;
+    public static final int REFRESH_START_PAGE = 0;
     public final static int REFRESH = 0;
     public final static int LOADMORE = 1;
     public LoadingCallBack loadingCallBack;
+
     /*RecyclerMultiAdapter adapter;*/
     XRecyclerView rv;
     private Handler handler = new Handler(Looper.myLooper());
@@ -81,7 +83,7 @@ public class CommonRVDelegate extends AppDelegate {
     }
 
     public int getCurrentPageNum(boolean refresh) {
-        return refresh ? 1 : currentLoadNum;
+        return refresh ? REFRESH_START_PAGE : currentLoadNum;
     }
 
     public interface LoadingCallBack {
