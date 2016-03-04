@@ -27,12 +27,6 @@ import com.hadlink.library.R;
 import com.hadlink.library.widget.progress.CircularProgressBar;
 
 
-/**
- * Author:  Tau.Chen
- * Email:   1076559197@qq.com | tauchen1990@gmail.com
- * Date:    2015/4/3.
- * Description:
- */
 public class PLALoadMoreListView extends PLAMultiColumnListView implements PLAAbsListView.OnScrollListener {
 
     private OnScrollListener mOnScrollListener;

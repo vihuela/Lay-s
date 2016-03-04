@@ -11,7 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hadlink.library.base.view.IDelegate;
+import com.hadlink.library.model.Event;
+import com.hadlink.library.util.rx.RxBus;
 import com.trello.rxlifecycle.components.support.RxFragment;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 
 /**
@@ -28,6 +33,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     private boolean isFirstVisible = true;
     private boolean isFirstInvisible = true;
     private boolean isPrepared;
+    private Subscription rxSubscribe;
 
     @Override public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -46,6 +52,19 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+        if (eventBus()) {
+            rxSubscribe = RxBus.getDefault().take(Event.class)
+                    .subscribe(new Action1<Event>() {
+                        @Override
+                        public void call(Event event) {
+                            onEvent(event.arg,event.getObject());
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                        }
+                    });
         }
     }
 
@@ -87,6 +106,14 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
         initPrepare();
     }
 
+
+    protected boolean eventBus() {
+        return false;
+    }
+
+    protected void onEvent(int what,Object obj) {
+    }
+
     protected void bindEvenListener() {
     }
 
@@ -116,6 +143,9 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     public void onDestroy() {
         super.onDestroy();
         viewDelegate = null;
+        if (eventBus()) {
+            if (rxSubscribe != null && rxSubscribe.isUnsubscribed()) rxSubscribe.unsubscribe();
+        }
     }
 
     /**
@@ -158,7 +188,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public final void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (isFirstVisible) {

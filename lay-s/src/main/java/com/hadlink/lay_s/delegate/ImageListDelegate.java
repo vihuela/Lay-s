@@ -90,6 +90,7 @@ public class ImageListDelegate extends AppDelegate {
             adapter.addMoreDatas(datas.getResult());
             plaLoadMoreListView.onLoadMoreComplete();
         }
+
         //check load more enable
         if (UriHelper.getInstance().calculateTotalPages(datas.totalNum) > currentLoadNum) {
             plaLoadMoreListView.setCanLoadMore(true);
@@ -114,6 +115,7 @@ public class ImageListDelegate extends AppDelegate {
                 plaLoadMoreListView.onLoadMoreComplete();
             }
         }, PAGE_LAZY_LOAD_DELAY_TIME_MS);
+
         //reset currentPage
         if (!refresh) {
             currentLoadNum--;

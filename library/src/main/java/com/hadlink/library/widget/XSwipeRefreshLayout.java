@@ -21,12 +21,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Author:  Tau.Chen
- * Email:   1076559197@qq.com | tauchen1990@gmail.com
- * Date:    2015/3/26.
- * Description:
- */
 public class XSwipeRefreshLayout extends SwipeRefreshLayout {
 
     public XSwipeRefreshLayout(Context context) {

@@ -2,21 +2,9 @@ package com.hadlink.lay_s.presenter;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.hadlink.easynet.util.NetUtils;
-import com.hadlink.lay_s.datamanager.bean.ImageDetail;
-import com.hadlink.lay_s.datamanager.net.MyNet;
-import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
-import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.CommonRVDelegate;
-import com.hadlink.lay_s.model.Event;
 import com.hadlink.library.base.BaseActivity;
-import com.hadlink.library.util.rx.RxBus;
-
-import java.util.List;
-
-import rx.Observable;
 
 public class Temp extends BaseActivity<CommonRVDelegate> implements CommonRVDelegate.LoadingCallBack {
 
@@ -32,14 +20,14 @@ public class Temp extends BaseActivity<CommonRVDelegate> implements CommonRVDele
     }
 
     private void initRxBus() {
-        RxBus.getDefault().take(Event.class)
+        /*RxBus.getDefault().take(Event.class)
                 .subscribe(event -> {
                     Toast.makeText(context, event.getAction(), Toast.LENGTH_SHORT).show();
-                });
+                });*/
     }
 
     private void requestList(boolean refresh) {
-        Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList("美女", 1);
+        /*Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList("美女", 1);
         imageList
                 .compose(this.bindToLifecycle())
                 .compose(NetUtils.applySchedulers())
@@ -52,7 +40,7 @@ public class Temp extends BaseActivity<CommonRVDelegate> implements CommonRVDele
                     @Override public void onDispatchError(Error error, Object message) {
                         super.onDispatchError(error, message);
                     }
-                });
+                });*/
 
     }
 
@@ -72,9 +60,9 @@ public class Temp extends BaseActivity<CommonRVDelegate> implements CommonRVDele
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
 
-        Event event = new Event();
+       /* Event event = new Event();
         event.setAction(item.getTitle().toString());
-        RxBus.getDefault().post(event);
+        RxBus.getDefault().post(event);*/
         return true;
     }
 }
