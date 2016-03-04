@@ -14,7 +14,7 @@ public class UriHelper {
     /**
      * 20 datas per page
      */
-    public static final int PAGE_LIMIT = 20;
+    public static final int PAGE_LIMIT = 200;
 
 
     private UriHelper() {

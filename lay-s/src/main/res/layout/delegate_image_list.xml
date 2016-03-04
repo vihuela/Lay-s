@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".presenter.Temp">
+    >
 
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/rv"
+    <com.hadlink.library.widget.XSwipeRefreshLayout
+        android:id="@+id/fragment_images_list_swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        />
+        android:layout_height="match_parent">
+
+        <com.hadlink.library.widget.pla.PLALoadMoreListView
+            android:id="@+id/fragment_images_list_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dp"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:plaColumnNumber="2"/>
+    </com.hadlink.library.widget.XSwipeRefreshLayout>
 
 </FrameLayout>

@@ -20,13 +20,7 @@ public class MainDelegate extends AppDelegate {
     SmartTabLayout tabLayout;
     HackViewpager viewpager;
     Fragment[] frgs;
-    String[] titles = new String[]{
-            "摄影", "壁纸",
-            "明星", "宠物",
-            "动漫", "头像",
-            "小清新", "风景",
-            "极光", "美女"
-    };
+    String[] titles;
 
 
     @Override public int getRootLayoutId() {
@@ -38,6 +32,7 @@ public class MainDelegate extends AppDelegate {
         tabLayout = get(R.id.tab);
         viewpager = get(R.id.pager);
         //all pagers
+        titles = getRootView().getContext().getResources().getStringArray(R.array.images_category_list_id);
         frgs = new Fragment[titles.length];
         for (int i = 0; i < titles.length; i++) {
             frgs[i] = new ImageListFrgPresenter();

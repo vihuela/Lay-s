@@ -1,95 +1,123 @@
 package com.hadlink.lay_s.delegate;
 
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
+import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
+import com.hadlink.lay_s.utils.UriHelper;
 import com.hadlink.library.base.view.AppDelegate;
-import com.hadlink.rvhelpperlib.adapter.RecyclerViewAdapter;
+import com.hadlink.library.widget.XSwipeRefreshLayout;
+import com.hadlink.library.widget.pla.PLAImageView;
+import com.hadlink.library.widget.pla.PLALoadMoreListView;
+import com.hadlink.rvhelpperlib.adapter.AdapterViewAdapter;
 import com.hadlink.rvhelpperlib.adapter.ViewHolderHelper;
-import com.hadlink.rvhelpperlib.decoration.CommonItemDecoration;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.liulishuo.qiniuimageloader.utils.PicassoLoader;
-
-import java.util.List;
 
 /**
  * @author Created by lyao on 2016/3/2.
  */
 public class ImageListDelegate extends AppDelegate {
-    public static final int OFFSET_PAGE = 20;
-    public static final int LOAD_MORE_START_PAGE = OFFSET_PAGE;
+    public static final int OFFSET_PAGE = UriHelper.PAGE_LIMIT;
     public static final int REFRESH_START_PAGE = 0;
-    public LoadingCallBack loadingCallBack;
-    XRecyclerView rv;
-    private RecyclerViewAdapter<ImageDetail> adapter;
-    private int currentLoadNum = LOAD_MORE_START_PAGE;//加载更多默认页是从第二页开始
+    public static final int PAGE_LAZY_LOAD_DELAY_TIME_MS = 200;
+
+    LoadingCallBack loadingCallBack;
+    XSwipeRefreshLayout xSwipeRefreshLayout;
+    PLALoadMoreListView plaLoadMoreListView;
+    int currentLoadNum = REFRESH_START_PAGE;
+    AdapterViewAdapter<ImageDetail> adapter;
+    Context ctx;
 
     @Override public int getRootLayoutId() {
         return R.layout.delegate_image_list;
     }
 
     @Override public void initWidget() {
-        rv = get(R.id.rv);
-        rv.setArrowImageView(R.mipmap.iconfont_downgrey);
-        rv.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        rv.setLaodingMoreProgressStyle(ProgressStyle.Pacman);
-        rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+        xSwipeRefreshLayout = get(R.id.fragment_images_list_swipe_layout);
+        plaLoadMoreListView = get(R.id.fragment_images_list_list_view);
+        ctx = plaLoadMoreListView.getContext();
+
+        //config view
+        xSwipeRefreshLayout.setColorSchemeColors(
+                ctx.getResources().getColor(R.color.gplus_color_1),
+                ctx.getResources().getColor(R.color.gplus_color_2),
+                ctx.getResources().getColor(R.color.gplus_color_3),
+                ctx.getResources().getColor(R.color.gplus_color_4));
+        xSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 if (loadingCallBack != null) loadingCallBack.onRefresh();
             }
-
+        });
+        plaLoadMoreListView.setOnLoadMoreListener(new PLALoadMoreListView.OnLoadMoreListener() {
             @Override public void onLoadMore() {
                 if (loadingCallBack != null) loadingCallBack.onLoadMore();
             }
         });
-        rv.addItemDecoration(new CommonItemDecoration(16));
-        rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        adapter = new RecyclerViewAdapter<ImageDetail>(rv, R.layout.item_image) {
+        //adapter
+        adapter = new AdapterViewAdapter<ImageDetail>(ctx, R.layout.item_image) {
             @Override protected void fillData(ViewHolderHelper viewHolderHelper, int position, ImageDetail model) {
+                PLAImageView iv = viewHolderHelper.getView(R.id.iv);
 
-
-                ImageView iv = viewHolderHelper.getIamgeView(R.id.iv);
-
-                /**/
-                if (!TextUtils.isEmpty(model.imageUrl))
-                    PicassoLoader.createLoader(iv, model.imageUrl)
+                if (!TextUtils.isEmpty(model.thumbnailUrl)) {
+                    PicassoLoader.createLoader(iv, model.thumbnailUrl)
                             .attach();
-                else iv.setImageBitmap(null);
-
+                    iv.setImageWidth(model.thumbnailWidth);
+                    iv.setImageHeight(model.thumbnailHeight);
+                }
             }
         };
-        rv.setAdapter(adapter);
+        plaLoadMoreListView.setAdapter(adapter);
+
+        //all ready
+        plaLoadMoreListView.postDelayed(new Runnable() {
+            @Override public void run() {
+                if (loadingCallBack != null) loadingCallBack.onPrepare();
+            }
+        }, PAGE_LAZY_LOAD_DELAY_TIME_MS);
 
 
     }
 
-    public void setDatas(boolean refresh, List<ImageDetail> datas) {
+    public void setDatas(boolean refresh, ImageListResponse<ImageDetail> datas) {
         if (refresh) {
-            adapter.setDatas(datas);
-            rv.postDelayed(new Runnable() {
-                @Override public void run() {
-                    rv.refreshComplete();
-                    currentLoadNum = LOAD_MORE_START_PAGE;//重置加载更多页
-                }
-            }, 1000);
+            adapter.setDatas(datas.getResult());
+            xSwipeRefreshLayout.setRefreshing(false);
         } else {
-            adapter.addMoreDatas(datas);
-            rv.postDelayed(new Runnable() {
-                @Override public void run() {
-                    rv.loadMoreComplete();
-                    currentLoadNum += OFFSET_PAGE;
-                }
-            }, 1500);
+            adapter.addMoreDatas(datas.getResult());
+            plaLoadMoreListView.onLoadMoreComplete();
+        }
+        //check load more enable
+        if (UriHelper.getInstance().calculateTotalPages(datas.totalNum) > currentLoadNum) {
+            plaLoadMoreListView.setCanLoadMore(true);
+        } else {
+            plaLoadMoreListView.setCanLoadMore(false);
         }
     }
 
     public int getCurrentPageNum(boolean refresh) {
-        return refresh ? REFRESH_START_PAGE : currentLoadNum;
+        if (refresh) {
+            currentLoadNum = REFRESH_START_PAGE;
+        } else {
+            currentLoadNum++;
+        }
+        return currentLoadNum * OFFSET_PAGE;
+    }
+
+    public void setError(boolean refresh) {
+        xSwipeRefreshLayout.postDelayed(new Runnable() {
+            @Override public void run() {
+                xSwipeRefreshLayout.setRefreshing(false);
+                plaLoadMoreListView.onLoadMoreComplete();
+            }
+        }, PAGE_LAZY_LOAD_DELAY_TIME_MS);
+        //reset currentPage
+        if (!refresh) {
+            currentLoadNum--;
+        }
     }
 
     public void setCallBack(LoadingCallBack loadingCallBack) {
@@ -100,5 +128,10 @@ public class ImageListDelegate extends AppDelegate {
         void onRefresh();
 
         void onLoadMore();
+
+        /**
+         * lazy load data
+         */
+        void onPrepare();
     }
 }

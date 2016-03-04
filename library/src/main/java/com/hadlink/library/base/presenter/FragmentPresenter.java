@@ -121,7 +121,8 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     /**
      * when fragment is visible for the first time, here we can do some initialized work or refresh data only once
      */
-    protected abstract void onFirstUserVisible();
+    protected void onFirstUserVisible() {
+    }
 
     private synchronized void initPrepare() {
         if (isPrepared) {
@@ -134,7 +135,8 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     /**
      * this method like the fragment's lifecycle method onResume()
      */
-    protected abstract void onUserVisible();
+    protected void onUserVisible() {
+    }
 
     /**
      * when fragment is invisible for the first time
@@ -146,7 +148,8 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     /**
      * this method like the fragment's lifecycle method onPause()
      */
-    protected abstract void onUserInvisible();
+    protected void onUserInvisible() {
+    }
 
     /**
      * get arguments

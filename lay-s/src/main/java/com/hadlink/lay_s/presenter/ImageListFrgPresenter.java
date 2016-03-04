@@ -10,8 +10,6 @@ import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.ImageListDelegate;
 import com.hadlink.library.base.presenter.FragmentPresenter;
 
-import java.util.List;
-
 import rx.Observable;
 
 /**
@@ -19,7 +17,6 @@ import rx.Observable;
  */
 public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> {
     String currentPaperTag;
-    int startIndex = 1;
 
 
     @Override protected Class<ImageListDelegate> getDelegateClass() {
@@ -39,6 +36,10 @@ public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> 
             @Override public void onLoadMore() {
                 requestList(false);
             }
+
+            @Override public void onPrepare() {
+
+            }
         });
     }
 
@@ -46,25 +47,20 @@ public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> 
         requestList(true);
     }
 
-    @Override protected void onUserVisible() {
-    }
-
-    @Override protected void onUserInvisible() {
-    }
-
     private void requestList(boolean refresh) {
+
         Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList(currentPaperTag, viewDelegate.getCurrentPageNum(refresh));
         imageList
                 .compose(this.bindToLifecycle())
                 .compose(NetUtils.applySchedulers())
                 .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>() {
                     @Override public void onSuccess(ImageListResponse<ImageDetail> imageDetailImageListResponse) {
-                        List<ImageDetail> result = imageDetailImageListResponse.getResult();
-                            viewDelegate.setDatas(refresh,result);
+                        viewDelegate.setDatas(refresh, imageDetailImageListResponse);
                     }
 
                     @Override public void onDispatchError(Error error, Object message) {
                         super.onDispatchError(error, message);
+                        viewDelegate.setError(refresh);
                     }
                 });
 
