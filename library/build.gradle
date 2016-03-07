@@ -34,6 +34,7 @@ dependencies {
     //google
     compile 'com.android.support:support-v4:23.2.0'
     compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
     compile 'com.android.support:support-annotations:23.2.0'
@@ -44,7 +45,7 @@ dependencies {
     //log
     compile 'com.github.orhanobut:logger:1.12'
     //net
-    compile 'com.hadlink:easynet:1.2.3_SNAPSHOT'
+    compile 'com.hadlink:easynet:1.2.4_SNAPSHOT'
     //adapter
     compile 'com.hadlink:rvhelpperlib:1.0.2'
     //rx
@@ -60,9 +61,11 @@ dependencies {
     compile 'com.liulishuo.qiniuimageloader:library:1.0.1'
     compile 'com.liulishuo.qiniuimageloader:utils-picasso:1.0.1'
     //view
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.10'
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
+    compile 'com.github.chrisbanes.photoview:library:1.2.2'
     //icon
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-entypo:2.1.1'
@@ -73,5 +76,5 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-weathericons:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-simplelineicons:2.1.1'
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.1.1'
-    compile 'com.android.support:cardview-v7:23.2.0'
+
 }

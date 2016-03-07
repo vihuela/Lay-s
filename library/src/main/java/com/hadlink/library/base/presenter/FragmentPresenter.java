@@ -1,18 +1,26 @@
 package com.hadlink.library.base.presenter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.hadlink.easynet.conf.ErrorInfo;
+import com.hadlink.library.R;
 import com.hadlink.library.base.view.IDelegate;
 import com.hadlink.library.model.Event;
 import com.hadlink.library.util.rx.RxBus;
+import com.hadlink.library.util.varyview.VaryViewHelper;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import rx.Subscription;
@@ -26,9 +34,12 @@ import rx.functions.Action1;
  * @param <T> View delegate class type
  */
 public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment {
-    public T viewDelegate;
-    public Context context;
-    public String tag;
+    protected T viewDelegate;
+    protected Context context;
+    protected String logTag;
+    protected VaryViewHelper varyViewHelper;
+    protected Handler handler = new Handler(Looper.getMainLooper());
+    protected String netTag;
     private boolean isFirstResume = true;
     private boolean isFirstVisible = true;
     private boolean isFirstInvisible = true;
@@ -38,9 +49,8 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     @Override public void onAttach(Activity activity) {
         super.onAttach(activity);
         context = activity;
-        tag = getClass().getSimpleName();
+        logTag = getClass().getSimpleName();
         if (getArguments() != null) onArguments(getArguments());
-
     }
 
     @Override
@@ -53,12 +63,12 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        if (eventBus()) {
+        if (bindBus()) {
             rxSubscribe = RxBus.getDefault().take(Event.class)
                     .subscribe(new Action1<Event>() {
                         @Override
                         public void call(Event event) {
-                            onEvent(event.arg,event.getObject());
+                            onEvent(event.arg, event.getObject());
                         }
                     }, new Action1<Throwable>() {
                         @Override
@@ -66,6 +76,36 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
                         }
                     });
         }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        viewDelegate.create(inflater, container, savedInstanceState);
+        return viewDelegate.getRootView();
+    }
+
+    @SuppressLint("InflateParams") @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewDelegate.initWidget();
+        if (viewDelegate.getLoadingTargetView() != null) {
+            varyViewHelper = new VaryViewHelper.Builder()
+                    .setDataView(viewDelegate.getLoadingTargetView())
+                    .setLoadingView(LayoutInflater.from(context).inflate(R.layout.layout_loadingview, null))
+                    .setEmptyView(LayoutInflater.from(context).inflate(R.layout.layout_emptyview, null))
+                    .setErrorView(LayoutInflater.from(context).inflate(R.layout.layout_errorview, null))
+                    .setRefreshListener(new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+                            onRetryListener();
+                        }
+                    })
+                    .build();
+        }
+        bindEvenListener();
+        initPrepare();
     }
 
     @Override
@@ -88,33 +128,56 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
         }
     }
 
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        viewDelegate.create(inflater, container, savedInstanceState);
-        return viewDelegate.getRootView();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewDelegate.initWidget();
-        bindEvenListener();
-        initPrepare();
-    }
-
-
-    protected boolean eventBus() {
+    protected boolean bindBus() {
         return false;
     }
 
-    protected void onEvent(int what,Object obj) {
+    /**
+     * rxBus事件回调，根据what判断时间类型
+     * 此回调有限制，仅适合我自己写的网络
+     *
+     * @param what
+     * @param obj
+     */
+    protected void onEvent(int what, Object obj) {
+        switch (what) {
+            case Event.NET_REQUEST_ERROR:
+                String eventTag = ((ErrorInfo) obj).getEventTag();
+                if (TextUtils.equals(eventTag, netTag)) {
+                    onNetError((ErrorInfo) obj);
+                }
+                break;
+        }
     }
 
+    /**
+     * 记得设置netTag
+     * 此回调有限制，仅适合我自己写的网络
+     */
+    protected void onNetError(ErrorInfo errorInfo) {
+        switch (errorInfo.getError()) {
+            case NetWork:
+            case Internal:
+            case Server:
+            case UnKnow:
+                Toast.makeText(context, errorInfo.getObject().toString(), Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+    }
+
+    /**
+     * 是否需要rxBus
+     */
     protected void bindEvenListener() {
+    }
+
+    /**
+     * 如果有设置loadingView，加载失败时重试点击的回调
+     *
+     * @see IDelegate #getLoadingTargetView()
+     */
+    protected void onRetryListener() {
     }
 
     @Override
@@ -142,14 +205,16 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        viewDelegate = null;
-        if (eventBus()) {
+        if (bindBus()) {
             if (rxSubscribe != null && rxSubscribe.isUnsubscribed()) rxSubscribe.unsubscribe();
         }
+        if (viewDelegate.getLoadingTargetView() != null) varyViewHelper.releaseVaryView();
+        viewDelegate = null;
+        handler.removeCallbacksAndMessages(null);
     }
 
     /**
-     * when fragment is visible for the first time, here we can do some initialized work or refresh data only once
+     * 当fragment首次可见时回调
      */
     protected void onFirstUserVisible() {
     }
@@ -163,7 +228,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     }
 
     /**
-     * this method like the fragment's lifecycle method onResume()
+     * 当fragment可见时回调
      */
     protected void onUserVisible() {
     }
@@ -176,13 +241,13 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     }
 
     /**
-     * this method like the fragment's lifecycle method onPause()
+     * 当fragment不可见时回调
      */
     protected void onUserInvisible() {
     }
 
     /**
-     * get arguments
+     * 当需要获取传递给fragment的参数时回调
      */
     protected void onArguments(Bundle arguments) {
     }

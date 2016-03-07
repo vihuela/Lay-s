@@ -22,4 +22,9 @@ public interface IDelegate {
     View getRootView();
 
     void initWidget();
+
+    /**
+     * 指定拥有加载过程的View
+     */
+    View getLoadingTargetView();
 }

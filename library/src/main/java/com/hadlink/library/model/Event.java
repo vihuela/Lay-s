@@ -2,6 +2,8 @@ package com.hadlink.library.model;
 
 public class Event {
 
+    public final static int NET_REQUEST_ERROR = 0x10;
+
     public int arg;
     private Object object;
 

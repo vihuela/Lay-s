@@ -83,4 +83,8 @@ public abstract class AppDelegate implements IDelegate {
     @Override public void destroy() {
 
     }
+
+    @Override public View getLoadingTargetView() {
+        return null;
+    }
 }

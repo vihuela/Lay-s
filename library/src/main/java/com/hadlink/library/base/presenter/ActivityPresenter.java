@@ -41,6 +41,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
         initToolbar();
         viewDelegate.initWidget();
         bindEvenListener();
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            getBundleExtras(extras);
+        }
     }
 
     @Override
@@ -81,6 +85,9 @@ public abstract class ActivityPresenter<T extends IDelegate> extends RxAppCompat
         super.onDestroy();
         viewDelegate.destroy();
         viewDelegate = null;
+    }
+
+    protected void getBundleExtras(Bundle extras) {
     }
 
     /**

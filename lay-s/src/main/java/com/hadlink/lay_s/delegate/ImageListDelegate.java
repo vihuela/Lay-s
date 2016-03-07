@@ -1,15 +1,21 @@
 package com.hadlink.lay_s.delegate;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.datamanager.bean.ImageDetail;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
+import com.hadlink.lay_s.presenter.ImageDetailPresenter;
 import com.hadlink.lay_s.utils.UriHelper;
 import com.hadlink.library.base.view.AppDelegate;
 import com.hadlink.library.widget.XSwipeRefreshLayout;
+import com.hadlink.library.widget.pla.PLAAdapterView;
 import com.hadlink.library.widget.pla.PLAImageView;
 import com.hadlink.library.widget.pla.PLALoadMoreListView;
 import com.hadlink.rvhelpperlib.adapter.AdapterViewAdapter;
@@ -56,12 +62,39 @@ public class ImageListDelegate extends AppDelegate {
                 if (loadingCallBack != null) loadingCallBack.onLoadMore();
             }
         });
+        plaLoadMoreListView.setOnItemClickListener(new PLAAdapterView.OnItemClickListener() {
+            @Override public void onItemClick(PLAAdapterView<?> parent, View view, int position, long id) {
+                Rect frame = new Rect();
+                getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+                int statusBarHeight = frame.top;
+
+                int[] location = new int[2];
+                view.getLocationOnScreen(location);
+                location[1] += statusBarHeight;
+
+                int width = view.getWidth();
+                int height = view.getHeight();
+
+                ImageDetail item = adapter.getItem(position);
+
+                Bundle extras = new Bundle();
+                extras.putString(ImageDetailPresenter.INTENT_IMAGE_URL_TAG, item.imageUrl);
+                extras.putInt(ImageDetailPresenter.INTENT_IMAGE_X_TAG, location[0]);
+                extras.putInt(ImageDetailPresenter.INTENT_IMAGE_Y_TAG, location[1]);
+                extras.putInt(ImageDetailPresenter.INTENT_IMAGE_W_TAG, width);
+                extras.putInt(ImageDetailPresenter.INTENT_IMAGE_H_TAG, height);
+
+                Intent intent = new Intent(getActivity(), ImageDetailPresenter.class);
+                intent.putExtras(extras);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(0, 0);
+            }
+        });
 
         //adapter
         adapter = new AdapterViewAdapter<ImageDetail>(ctx, R.layout.item_image) {
             @Override protected void fillData(ViewHolderHelper viewHolderHelper, int position, ImageDetail model) {
                 PLAImageView iv = viewHolderHelper.getView(R.id.iv);
-
                 if (!TextUtils.isEmpty(model.thumbnailUrl)) {
                     PicassoLoader.createLoader(iv, model.thumbnailUrl)
                             .attach();
@@ -71,15 +104,10 @@ public class ImageListDelegate extends AppDelegate {
             }
         };
         plaLoadMoreListView.setAdapter(adapter);
+    }
 
-        //all ready
-        plaLoadMoreListView.postDelayed(new Runnable() {
-            @Override public void run() {
-                if (loadingCallBack != null) loadingCallBack.onPrepare();
-            }
-        }, PAGE_LAZY_LOAD_DELAY_TIME_MS);
-
-
+    @Override public View getLoadingTargetView() {
+        return get(R.id.fragment_images_list_swipe_layout);
     }
 
     public void setDatas(boolean refresh, ImageListResponse<ImageDetail> datas) {
@@ -130,10 +158,5 @@ public class ImageListDelegate extends AppDelegate {
         void onRefresh();
 
         void onLoadMore();
-
-        /**
-         * lazy load data
-         */
-        void onPrepare();
     }
 }

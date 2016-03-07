@@ -2,4 +2,6 @@
     <string name="app_name">Lay-s</string>
     <string name="substitute">substitute</string>
     <string name="setting_about">about</string>
+    <string name="load_again">点击屏幕，重新加载</string>
+    <string name="loading">加载中...</string>
 </resources>

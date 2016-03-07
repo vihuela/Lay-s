@@ -7,5 +7,5 @@ import com.hadlink.library.model.Event;
  */
 public class EventImpl extends Event {
 
-    public final static int NET_REQUEST_ERROR = 0x10;
+
 }

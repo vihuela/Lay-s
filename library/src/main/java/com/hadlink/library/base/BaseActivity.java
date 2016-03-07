@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.hadlink.library.R;
 import com.hadlink.library.base.presenter.ActivityPresenter;
 import com.hadlink.library.base.view.IDelegate;
 
@@ -32,11 +31,12 @@ public abstract class BaseActivity<T extends IDelegate> extends ActivityPresente
     @Override
     protected void initToolbar() {
         Toolbar toolbar = viewDelegate.getToolbar();
-        if (toolbar == null) {
+        /*if (toolbar == null) {
             toolbar = (Toolbar) View.inflate(this, R.layout.base_toolbar, null);
             rootView.addView(toolbar, 0);
-        }
-        setSupportActionBar(toolbar);
+        }*/
+        if (toolbar != null)
+            setSupportActionBar(toolbar);
     }
 
     @Override

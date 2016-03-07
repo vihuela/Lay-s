@@ -1,7 +1,6 @@
 package com.hadlink.lay_s.presenter;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.hadlink.easynet.conf.ErrorInfo;
 import com.hadlink.easynet.util.NetUtils;
@@ -10,7 +9,6 @@ import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.ImageListDelegate;
-import com.hadlink.lay_s.model.EventImpl;
 import com.hadlink.library.base.presenter.FragmentPresenter;
 
 import rx.Observable;
@@ -19,23 +17,17 @@ import rx.Observable;
  * @author Created by lyao on 2016/3/2.
  */
 public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> {
-    
-    String currentPaperTag;
+
     boolean refresh;
 
-    @Override protected boolean eventBus() {
+    @Override protected boolean bindBus() {
         return true;
     }
 
-    @Override protected void onEvent(int what, Object obj) {
-        switch (what) {
-            case EventImpl.NET_REQUEST_ERROR:
-                String eventTag = ((ErrorInfo) obj).getEventTag();
-                if (TextUtils.equals(eventTag, currentPaperTag)) {
-                    viewDelegate.setError(this.refresh);
-                }
-                break;
-        }
+    @Override protected void onNetError(ErrorInfo obj) {
+        super.onNetError(obj);
+        viewDelegate.setError(this.refresh);
+        varyViewHelper.showErrorView();
     }
 
     @Override protected Class<ImageListDelegate> getDelegateClass() {
@@ -43,7 +35,8 @@ public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> 
     }
 
     @Override protected void onArguments(Bundle arguments) {
-        currentPaperTag = arguments.getString("title");
+
+        netTag = arguments.getString("title");
     }
 
     @Override protected void bindEvenListener() {
@@ -55,27 +48,32 @@ public class ImageListFrgPresenter extends FragmentPresenter<ImageListDelegate> 
             @Override public void onLoadMore() {
                 requestList(false);
             }
-
-            @Override public void onPrepare() {
-
-            }
         });
     }
 
+    @Override protected void onRetryListener() {
+        loadData();
+    }
+
     @Override protected void onFirstUserVisible() {
+        loadData();
+    }
+
+    private void loadData() {
+        varyViewHelper.showLoadingView();
         requestList(true);
     }
 
     private void requestList(boolean refresh) {
 
-        this.refresh = refresh;
-        Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList(currentPaperTag, viewDelegate.getCurrentPageNum(refresh));
+        Observable<ImageListResponse<ImageDetail>> imageList = MyNet.get().getImageList(netTag, viewDelegate.getCurrentPageNum(refresh));
         imageList
                 .compose(this.bindToLifecycle())
                 .compose(NetUtils.applySchedulers())
-                .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>(currentPaperTag) {
+                .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>(netTag) {
                     @Override public void onSuccess(ImageListResponse<ImageDetail> imageDetailImageListResponse) {
                         viewDelegate.setDatas(ImageListFrgPresenter.this.refresh, imageDetailImageListResponse);
+                        varyViewHelper.showDataView();
                     }
                 });
 
