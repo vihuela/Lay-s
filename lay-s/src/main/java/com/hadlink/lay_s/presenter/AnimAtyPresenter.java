@@ -9,19 +9,22 @@ import com.hadlink.lay_s.datamanager.net.MyNet;
 import com.hadlink.lay_s.datamanager.net.netcallback.MyNetCallBack;
 import com.hadlink.lay_s.datamanager.net.response.ImageListResponse;
 import com.hadlink.lay_s.delegate.ImageListDelegate;
-import com.hadlink.library.base.BaseFragment;
+import com.hadlink.library.base.BaseActivity;
 
 import rx.Observable;
 
 /**
- * @author Created by lyao on 2016/3/2.
+ * @author Created by lyao on 2016/3/8.
  */
-public class ImageListFrgPresenter extends BaseFragment<ImageListDelegate> {
-
+public class AnimAtyPresenter extends BaseActivity<ImageListDelegate> {
     boolean refresh;
 
     @Override protected boolean bindBus() {
         return true;
+    }
+
+    @Override protected Class<ImageListDelegate> getDelegateClass() {
+        return ImageListDelegate.class;
     }
 
     @Override protected void onNetError(ErrorInfo obj) {
@@ -30,16 +33,14 @@ public class ImageListFrgPresenter extends BaseFragment<ImageListDelegate> {
         varyViewHelper.showErrorView();
     }
 
-    @Override protected Class<ImageListDelegate> getDelegateClass() {
-        return ImageListDelegate.class;
+    @Override protected void onRetryListener() {
+        loadData();
     }
 
-    @Override protected void onArguments(Bundle arguments) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        netTag = "美食";
 
-        netTag = arguments.getString("title");
-    }
-
-    @Override protected void bindEvenListener() {
         viewDelegate.setCallBack(new ImageListDelegate.LoadingCallBack() {
             @Override public void onRefresh() {
                 requestList(true);
@@ -49,13 +50,7 @@ public class ImageListFrgPresenter extends BaseFragment<ImageListDelegate> {
                 requestList(false);
             }
         });
-    }
 
-    @Override protected void onRetryListener() {
-        loadData();
-    }
-
-    @Override protected void onFirstUserVisible() {
         loadData();
     }
 
@@ -74,10 +69,14 @@ public class ImageListFrgPresenter extends BaseFragment<ImageListDelegate> {
                 .compose(NetUtils.applySchedulers())
                 .subscribe(new MyNetCallBack<ImageListResponse<ImageDetail>>(netTag) {
                     @Override public void onSuccess(ImageListResponse<ImageDetail> imageDetailImageListResponse) {
-                        viewDelegate.setDatas(ImageListFrgPresenter.this.refresh, imageDetailImageListResponse);
+                        viewDelegate.setDatas(AnimAtyPresenter.this.refresh, imageDetailImageListResponse);
                         varyViewHelper.showDataView();
                     }
                 });
 
+    }
+
+    @Override protected String getToolBarTitle() {
+        return "美食";
     }
 }

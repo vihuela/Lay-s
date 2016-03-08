@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.widget.Toolbar;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.presenter.ImageListFrgPresenter;
@@ -44,12 +43,6 @@ public class MainDelegate extends AppDelegate {
 
     @Override public int getOptionsMenuId() {
         return R.menu.menu_main;
-    }
-
-    @Override public Toolbar getToolbar() {
-        Toolbar toolbar = get(R.id.toolbar);
-        toolbar.setTitle("Image Browser");
-        return toolbar;
     }
 
 

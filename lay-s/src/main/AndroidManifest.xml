@@ -30,6 +30,10 @@
             android:name=".presenter.ImageDetailPresenter"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".presenter.AnimAtyPresenter"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

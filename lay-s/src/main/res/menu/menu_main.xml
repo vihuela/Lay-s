@@ -9,7 +9,7 @@
         android:title="gitHub"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/about"
+        android:id="@+id/food"
         android:icon="@drawable/ic_loading_rotate"
         android:orderInCategory="100"
         android:title="@string/setting_about"

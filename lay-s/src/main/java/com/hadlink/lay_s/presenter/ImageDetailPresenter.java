@@ -15,6 +15,11 @@ public class ImageDetailPresenter extends BaseActivity<ImageDetailDelegate> {
     public static final String INTENT_IMAGE_W_TAG = "INTENT_IMAGE_W_TAG";
     public static final String INTENT_IMAGE_H_TAG = "INTENT_IMAGE_H_TAG";
 
+
+    @Override protected boolean getToolbarAvailable() {
+        return false;
+    }
+
     @Override protected Class<ImageDetailDelegate> getDelegateClass() {
         return ImageDetailDelegate.class;
     }
@@ -26,10 +31,15 @@ public class ImageDetailPresenter extends BaseActivity<ImageDetailDelegate> {
         int mWidth = extras.getInt(INTENT_IMAGE_W_TAG);
         int mHeight = extras.getInt(INTENT_IMAGE_H_TAG);
 
+        varyViewHelper.showLoadingView();
         viewDelegate.setOriginalInfo(mImageUrl, mWidth, mHeight, mLocationX, mLocationY, new Runnable() {
             @Override public void run() {
                 //点击图片时
                 finish();
+            }
+        },new Runnable(){
+            @Override public void run() {
+                varyViewHelper.showDataView();
             }
         });
 
@@ -38,7 +48,10 @@ public class ImageDetailPresenter extends BaseActivity<ImageDetailDelegate> {
 
     @Override
     public void onBackPressed() {
-        viewDelegate.transformOut();
+        if (viewDelegate.isLoadSuccess())
+            viewDelegate.transformOut();
+        else
+            finish();
     }
 
     @Override
@@ -48,4 +61,5 @@ public class ImageDetailPresenter extends BaseActivity<ImageDetailDelegate> {
             overridePendingTransition(0, 0);
         }
     }
+
 }

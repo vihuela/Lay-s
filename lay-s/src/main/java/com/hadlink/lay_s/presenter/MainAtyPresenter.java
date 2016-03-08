@@ -1,7 +1,9 @@
 package com.hadlink.lay_s.presenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.hadlink.lay_s.R;
 import com.hadlink.lay_s.delegate.MainDelegate;
@@ -25,5 +27,21 @@ public class MainAtyPresenter extends BaseActivity<MainDelegate> {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewDelegate.initView(getSupportFragmentManager());
+    }
+
+    @Override protected String getToolBarTitle() {
+
+        return "Image Browser";
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.git:
+                break;
+            case R.id.food:
+                startActivity(new Intent(this, AnimAtyPresenter.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

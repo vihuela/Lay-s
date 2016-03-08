@@ -169,7 +169,7 @@ public class SmoothImageView extends PhotoView {
         if (getDrawable() == null) {
             return;
         }
-        
+
         //防止转换失败
         if (getDrawable() instanceof ColorDrawable) return;
 

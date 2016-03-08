@@ -1,6 +1,7 @@
 package com.hadlink.library.base.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ public abstract class AppDelegate implements IDelegate {
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
     protected View rootView;
+    protected Context context;
 
     public abstract int getRootLayoutId();
 
@@ -25,6 +27,7 @@ public abstract class AppDelegate implements IDelegate {
     public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int rootLayoutId = getRootLayoutId();
         rootView = inflater.inflate(rootLayoutId, container, false);
+        context = rootView.getContext();
     }
 
     @Override
