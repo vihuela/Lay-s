@@ -18,8 +18,7 @@
 
 ----------
 
-
-> **此项目会不定期更新**，喜欢的朋友可以**star**，同事欢迎留下宝贵的意见，一起交流。
+> **此项目会不定期更新**，满满的干货，喜欢的朋友可以**star**，同时欢迎留下宝贵的意见，一起交流。
 
 ----------
 
@@ -32,8 +31,8 @@
 
 
 - 打开Android studio->File->New->Project from version Control->github
-- 在输入框中输入：https://github.com/vihuela/Lay-s.git，然后就可以确定了。
-- 避免了修改Gradle的麻烦
+- 在输入框中输入：https://github.com/vihuela/Lay-s.git。
+- 避免了修改Gradle版本的麻烦
 
 ##  Third-party libraries used
 
