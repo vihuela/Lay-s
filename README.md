@@ -50,6 +50,11 @@ Creators
 --------
 
 vihuela - Github [@vihuela](https://github.com/vihuela) 
+
+Thanks to
+--------
+[kymjs](https://github.com/kymjs "kymjs")
+
 License
 -------
 
