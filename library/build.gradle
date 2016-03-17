@@ -63,7 +63,7 @@ dependencies {
     //log
     compile 'com.github.orhanobut:logger:1.12'
     //net
-    compile 'com.hadlink:easynet:1.2.4_SNAPSHOT'
+    compile 'com.hadlink:easynet:1.2.5'
     //adapter
     compile 'com.hadlink:rvhelpperlib:1.0.2'
     //rx
